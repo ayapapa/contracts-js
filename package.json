@@ -1,0 +1,15 @@
+{
+  "name": "contracts-js",
+  "version": "0.1.0",
+  "description": "Design by Contract utilities for JavaScript: preconditions, postconditions, and invariants.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:debug": "vitest --inspect-brk --run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
