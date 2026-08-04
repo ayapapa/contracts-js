@@ -2,14 +2,30 @@
   "name": "contracts-js",
   "version": "0.1.0",
   "description": "Design by Contract utilities for JavaScript: preconditions, postconditions, and invariants.",
+  "license": "MIT",
+  "author": "ayapapa",
   "type": "module",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsup src/index.ts --format esm --out-dir dist --clean --dts",
     "test": "vitest run",
     "test:debug": "vitest --inspect-brk --run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
   },
   "devDependencies": {
-    "vitest": "^3.2.4"
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }
