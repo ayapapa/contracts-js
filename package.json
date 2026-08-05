@@ -5,16 +5,19 @@
   "license": "MIT",
   "author": "ayapapa",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --out-dir dist --clean --dts",
+    "build": "tsup src/index.js --format esm,cjs --out-dir dist --clean --dts",
     "test": "vitest run",
     "test:debug": "vitest --inspect-brk --run",
     "test:watch": "vitest",
