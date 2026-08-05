@@ -7,6 +7,9 @@ Design by Contract utilities for JavaScript: preconditions, postconditions, and 
 
 ```javascript
 import { Contracts } from './Contracts.js';
+// or,
+//  import Contracts from './Contracts.js';
+
 // In the case of CommonJS,
 //  const { Contracts } = require('contracts-js');
 // or,
