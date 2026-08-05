@@ -6,7 +6,7 @@ Design by Contract utilities for JavaScript: preconditions, postconditions, and 
 ### Install directly from GitHub Release:
 Available now.
 ```bash
-npm install https://github.com/ayapapa/contracts-js/releases/download/0.1.0/contracts-js-0.1.0.tgz
+npm install https://github.com/ayapapa/contracts-js/releases/download/0.2.0/contracts-js-0.2.0.tgz
 ```
 If you see the error:
 ```
@@ -19,7 +19,7 @@ npm config set allow-remote all
 ```
 Then run the install command again:
 ```bash
-npm install https://github.com/ayapapa/contracts-js/releases/download/0.1.0/contracts-js-0.1.0.tgz
+npm install https://github.com/ayapapa/contracts-js/releases/download/0.2.0/contracts-js-0.2.0.tgz
 ```
 
 ### Install from npm registry
