@@ -28,9 +28,9 @@ Coming soon: installable with `npm install contracts-js`.
 ## Usage
 
 ```javascript
-import { Contracts } from './Contracts.js';
+import { Contracts } from 'contracts-js';
 // or,
-//  import Contracts from './Contracts.js';
+//  import Contracts from 'contracts-jss';
 
 // In the case of CommonJS,
 //  const { Contracts } = require('contracts-js');
