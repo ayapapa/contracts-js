@@ -1,12 +1,20 @@
 # contracts-js
-Design by Contract utilities for JavaScript: preconditions, postconditions, and invariants.
+A lightweight Design by Contract library for JavaScript.
 
 ## Installation
 
-### Install directly from GitHub Release:
+
+### Install from npm registry
 Available now.
 ```bash
-npm install https://github.com/ayapapa/contracts-js/releases/download/0.2.0/contracts-js-0.2.0.tgz
+npm install @ayapapa-npm/contracts-js
+```
+
+### Install directly from GitHub Release:
+Available now.
+Check for the latest version before installation: https://github.com/ayapapa/contracts-js/releases
+```bash
+npm install https://github.com/ayapapa/contracts-js/releases/download/X.Y.Z/ayapapa-npm-contracts-js-X.Y.Z.tgz
 ```
 If you see the error:
 ```
@@ -14,16 +22,15 @@ npm error code EALLOWREMOTE
 npm error Fetching packages of type "remote" have been disabled
 ```
 allow remote packages:
+
 ```bash
 npm config set allow-remote all
 ```
 Then run the install command again:
 ```bash
-npm install https://github.com/ayapapa/contracts-js/releases/download/0.2.0/contracts-js-0.2.0.tgz
+npm install https://github.com/ayapapa/contracts-js/releases/download/X.Y.Z/ayapapa-npm-contracts-js-X.Y.Z.tgz
 ```
 
-### Install from npm registry
-Coming soon: installable with `npm install contracts-js`.
 
 ## Usage
 
