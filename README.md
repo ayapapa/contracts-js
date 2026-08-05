@@ -1,8 +1,30 @@
 # contracts-js
 Design by Contract utilities for JavaScript: preconditions, postconditions, and invariants.
 
-## Install
- 
+## Installation
+
+### Install directly from GitHub Release:
+Available now.
+```bash
+npm install https://github.com/ayapapa/contracts-js/releases/download/0.1.0/contracts-js-0.1.0.tgz
+```
+If you see the error:
+```
+npm error code EALLOWREMOTE
+npm error Fetching packages of type "remote" have been disabled
+```
+allow remote packages:
+```bash
+npm config set allow-remote all
+```
+Then run the install command again:
+```bash
+npm install https://github.com/ayapapa/contracts-js/releases/download/0.1.0/contracts-js-0.1.0.tgz
+```
+
+### Install from npm registry
+Coming soon: installable with `npm install contracts-js`.
+
 ## Usage
 
 ```javascript
@@ -31,3 +53,4 @@ function getPositiveNumber(x) {
   Contracts ENSURE(result > 0, 'Result must be positive');
   return result;
 }
+```
