@@ -1,159 +1,633 @@
 'use strict';
 
 /**
- * Contract checking utilities.
- * Provides methods to verify preconditions, postconditions, invariants, and general conditions.
+ * Design by Contract utilities.
+ *
+ * Provides runtime contract checks based on
+ * Design by Contract principles.
+ *
+ * ## Contract Types
+ *
+ * - REQUIRE (Precondition)
+ *   Conditions that must be satisfied before execution starts.
+ *   Used for validating input arguments and required states.
+ *
+ * - VERIFY (Intermediate Condition)
+ *   Conditions checked during execution.
+ *   Used for validating intermediate results and internal assumptions.
+ *
+ * - ENSURE (Postcondition)
+ *   Conditions that must be satisfied after execution completes.
+ *   Used for validating return values and completed state changes.
+ *
+ * - INVARIANT (Invariant Condition)
+ *   Conditions that must remain valid throughout
+ *   the lifetime of an object or component.
+ *
+ * ## Debug Mode
+ *
+ * Methods ending with `_DEBUG` execute contract checks only
+ * when `DEBUG_MODE` is enabled.
+ *
+ * When `DEBUG_MODE` is disabled,
+ * these methods return the original condition value
+ * without performing validation.
+ *
+ * @module Contracts
  */
 export class Contracts {
 
-  // @type {boolean}
+  /** @type {boolean} Debug mode state */
   static DEBUG_MODE = false;
 
   /**
-   * Configures the contract checking behavior.
-   * @param {{debug?: boolean}} config Configuration object
+   * Configures contract checking behavior.
+   *
+   * @param {{debug?: boolean}} config
+   * Configuration options.
+   *
+   * The `debug` property enables or disables
+   * debug-only contract checks.
+   *
+   * When `debug` is `true`,
+   * methods ending with `_DEBUG` perform validation.
+   *
+   * When `debug` is `false` or omitted,
+   * methods ending with `_DEBUG` skip validation.
+   *
+   * @example
+   * Contracts.setConfig({ debug: true });
    */
   static setConfig(config) {
-    if (config) {
-      Contracts.DEBUG_MODE = config.debug || false;
-    }
+    Contracts.DEBUG_MODE = Boolean(config.debug);
+  }
+
+
+  /**
+   * Verifies an intermediate condition during execution.
+   *
+   * VERIFY is used to validate intermediate results
+   * and internal assumptions during execution.
+   *
+   * Unlike REQUIRE and ENSURE, VERIFY does not represent
+   * a condition at the function boundary.
+   *
+   * Unlike INVARIANT, VERIFY does not represent a condition
+   * that must always remain true.
+   *
+   * Typical usage:
+   * - Validate intermediate calculation results.
+   * - Confirm internal processing states.
+   * - Check temporary assumptions during execution.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * const result = calculate();
+   *
+   * Contracts.VERIFY(
+   *   result >= 0,
+   *   'Calculation result must not be negative'
+   * );
+   */
+  static VERIFY(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#check(
+      isOk,
+      'VERIFY',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
+
+  /**
+   * Verifies an intermediate condition in debug mode only.
+   *
+   * Performs the same validation as VERIFY only when
+   * DEBUG_MODE is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * no validation is performed.
+   *
+   * Typical usage:
+   * - Validate intermediate results during development.
+   * - Check internal assumptions while debugging.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * Contracts.VERIFY_DEBUG(
+   *   intermediate !== null,
+   *   'Intermediate value must not be null'
+   * );
+   */
+  static VERIFY_DEBUG(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#checkDebug(
+      isOk,
+      'VERIFY_DEBUG',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
 
   /**
-   * Checks a general condition.
-   * If `isOk` is false and an `error` class is provided, throws an exception with `ngMsg`.
-   * Otherwise, logs the error message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error=Error] The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks a precondition before execution.
+   *
+   * A precondition defines conditions that must be satisfied
+   * before a function or operation starts.
+   *
+   * The caller is responsible for satisfying preconditions.
+   *
+   * Typical usage:
+   * - Validate function arguments.
+   * - Validate required object state.
+   * - Check required external conditions.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * function divide(a, b) {
+   *   Contracts.REQUIRE(
+   *     typeof a === 'number',
+   *     'a must be a number'
+   *   );
+   *
+   *   Contracts.REQUIRE(
+   *     b !== 0,
+   *     'Divisor cannot be zero'
+   *   );
+   *
+   *   return a / b;
+   * }
    */
-  static VERIFY(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#check(isOk, 'VERIFY', ngMsg, error, eProps); }
+  static REQUIRE(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#check(
+      isOk,
+      'REQUIRE',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
 
   /**
-   * Checks a general condition (for debugging: outputs execution message but throws no exception in debug mode).
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks a precondition in debug mode only.
+   *
+   * Performs the same validation as REQUIRE only when
+   * DEBUG_MODE is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * no validation is performed.
+   *
+   * Typical usage:
+   * - Validate assumptions during development.
+   * - Perform additional argument checks while debugging.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * Contracts.REQUIRE_DEBUG(
+   *   user !== null,
+   *   'User must exist during debugging'
+   * );
    */
-  static VERIFY_DEBUG(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#checkDebug(isOk, 'VERIFY_DEBUG', ngMsg, error, eProps); }
+  static REQUIRE_DEBUG(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#checkDebug(
+      isOk,
+      'REQUIRE_DEBUG',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
 
   /**
-   * Checks a precondition.
-   * Use this to verify conditions that must be true before a function executes (e.g., argument validation).
-   * If `isOk` is false and an `error` class is provided, throws an exception with `ngMsg`.
-   * Otherwise, logs the error message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error=Error] The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks a postcondition after execution.
+   *
+   * A postcondition defines conditions that must be satisfied
+   * after a function or operation completes.
+   *
+   * ENSURE represents guarantees provided by the function
+   * to its caller.
+   *
+   * Typical usage:
+   * - Validate return values.
+   * - Confirm state changes.
+   * - Verify that processing completed correctly.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * function double(value) {
+   *   Contracts.REQUIRE(
+   *     value >= 0,
+   *     'Value must not be negative'
+   *   );
+   *
+   *   const result = value * 2;
+   *
+   *   Contracts.ENSURE(
+   *     result >= 0,
+   *     'Result must not be negative'
+   *   );
+   *
+   *   return result;
+   * }
    */
-  static REQUIRE(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#check(isOk, 'REQUIRE', ngMsg, error, eProps); }
+  static ENSURE(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#check(
+      isOk,
+      'ENSURE',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
 
   /**
-   * Checks a precondition (for debugging: outputs execution message but throws no exception in debug mode).
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks a postcondition in debug mode only.
+   *
+   * Performs the same validation as ENSURE only when
+   * DEBUG_MODE is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * no validation is performed.
+   *
+   * Typical usage:
+   * - Validate detailed results during development.
+   * - Confirm internal behavior while debugging.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * Contracts.ENSURE_DEBUG(
+   *   result !== undefined,
+   *   'Result should exist during debugging'
+   * );
    */
-  static REQUIRE_DEBUG(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#checkDebug(isOk, 'REQUIRE_DEBUG', ngMsg, error, eProps); }
+  static ENSURE_DEBUG(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#checkDebug(
+      isOk,
+      'ENSURE_DEBUG',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
 
   /**
-   * Checks a postcondition.
-   * Use this to verify conditions that must be true after a function executes (e.g., return value or object state).
-   * If `isOk` is false and an `error` class is provided, throws an exception with `ngMsg`.
-   * Otherwise, logs the error message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error=Error] The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks an invariant condition.
+   *
+   * An invariant represents a condition that must remain valid
+   * throughout the lifetime of an object or component.
+   *
+   * Typical usage:
+   * - Validate internal object consistency.
+   * - Protect class state integrity.
+   * - Confirm assumptions that must always hold.
+   *
+   * In Design by Contract terminology,
+   * INVARIANT represents conditions that must always remain true.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * class BankAccount {
+   *
+   *   withdraw(amount) {
+   *     this.balance -= amount;
+   *
+   *     Contracts.INVARIANT(
+   *       this.balance >= 0,
+   *       'Balance cannot be negative'
+   *     );
+   *   }
+   *
+   * }
    */
-  static ENSURE(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#check(isOk, 'ENSURE', ngMsg, error, eProps); }
+  static INVARIANT(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#check(
+      isOk,
+      'INVARIANT',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
 
   /**
-   * Checks a postcondition (for debugging: outputs execution message but throws no exception in debug mode).
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Checks an invariant condition in debug mode only.
+   *
+   * Performs the same validation as INVARIANT only when
+   * DEBUG_MODE is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * no validation is performed.
+   *
+   * Typical usage:
+   * - Validate object consistency during development.
+   * - Detect unexpected state changes while debugging.
+   *
+   * @param {boolean} isOk
+   * Condition result to verify.
+   *
+   * @param {string|null} [ngMsg]
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * Error constructor used when the check fails.
+   *
+   * @param {Object<string, *>} [eProps]
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
+   * @example
+   * Contracts.INVARIANT_DEBUG(
+   *   cache.size < 1000,
+   *   'Cache size exceeded expected limit'
+   * );
    */
-  static ENSURE_DEBUG(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#checkDebug(isOk, 'ENSURE_DEBUG', ngMsg, error, eProps); }
+  static INVARIANT_DEBUG(
+    isOk,
+    ngMsg,
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.#checkDebug(
+      isOk,
+      'INVARIANT_DEBUG',
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+
 
   /**
-   * Checks an invariant.
-   * Use this to verify conditions that must remain true before and after a function call (e.g., object integrity).
-   * If `isOk` is false and an `error` class is provided, throws an exception with `ngMsg`.
-   * Otherwise, logs the error message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error=Error] The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Core contract evaluation logic.
+   *
+   * Evaluates a condition and handles failures.
+   * All public contract methods delegate to this method.
+   *
+   * Behavior:
+   * - When the condition is true, returns the original value.
+   * - When the condition is false and ErrorClass is specified,
+   *   throws an instance of the specified error class.
+   * - When ErrorClass is null,
+   *   logs the failure message instead of throwing.
+   *
+   * @param {boolean} isOk
+   * Condition result.
+   *
+   * @param {string} prefix
+   * Contract type prefix used in the error message.
+   *
+   * @param {string|null} ngMsg
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} ErrorClass
+   * Error constructor.
+   *
+   * @param {Object<string, *>} eProps
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
    */
-  static INVARIANT(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#check(isOk, 'INVARIANT', ngMsg, error, eProps); }
-
-  /**
-   * Checks an invariant (for debugging: outputs execution message but throws no exception in debug mode).
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
-   */
-  static INVARIANT_DEBUG(isOk, ngMsg, error = Error, eProps={}) { return Contracts.#checkDebug(isOk, 'INVARIANT_DEBUG', ngMsg, error, eProps); }
-
-  /**
-   * Private methods
-   */
-
-  /**
-   * Core evaluation logic.
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [prefix]  Prefix for the error message.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
-   */
-  static #check(isOk, prefix = "CHECK", ngMsg = '', error = Error, eProps={}) {
+  static #check(
+    isOk,
+    prefix = 'CHECK',
+    ngMsg = '',
+    ErrorClass = Error,
+    eProps = {}
+  ) {
     if (!isOk) {
-      const msg = `[${prefix}]${ngMsg ?? ""}`;
-      if (error) throw Object.assign(new error(msg), eProps);
-      if (ngMsg) console.error(msg, eProps);
+      const msg = `[${prefix}] ${ngMsg ?? ''}`;
+
+      if (ErrorClass) {
+        throw Object.assign(
+          new ErrorClass(msg),
+          eProps
+        );
+      }
+
+      if (ngMsg) {
+        console.error(msg, eProps);
+      }
     }
+
     return isOk;
   }
 
+
   /**
-   * Debug evaluation logic (no message output or exception thrown unless in debug mode).
-   * If the result is false and an `error` class is provided, throws an exception.
-   * Otherwise, logs the message to `console.error`.
-   * @param   {boolean}   isOk      The result of the condition check.
-   * @param   {string}    [prefix]  Prefix for the error message.
-   * @param   {string}    [ngMsg]   The error message.
-   * @param   {new (...args: any[]) => Error}  [error]   The error class to throw (Error or its subclass).
-   * @param   {Object<string, *>}    [eProps={}]   Properties to assign to the error instance.
-   * @return  {boolean} The evaluation result (returns `isOk` as is).
+   * Debug-only contract evaluation logic.
+   *
+   * Executes contract validation only when DEBUG_MODE
+   * is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * this method returns the original condition value
+   * without performing any validation.
+   *
+   * @param {boolean} isOk
+   * Condition result.
+   *
+   * @param {string} prefix
+   * Contract type prefix used in the error message.
+   *
+   * @param {string|null} ngMsg
+   * Failure message.
+   *
+   * @param {(new (...args:any[])=>Error)|null} ErrorClass
+   * Error constructor.
+   *
+   * @param {Object<string, *>} eProps
+   * Additional properties assigned to the error object.
+   *
+   * @returns {boolean}
+   * Returns the original condition value.
+   *
    */
-  static #checkDebug(isOk, prefix = 'CHECK_DEBUG', ngMsg = '', error = Error, eProps={}) {
-    return Contracts.DEBUG_MODE ? Contracts.#check(isOk, prefix, ngMsg, error, eProps) : isOk;
+  static #checkDebug(
+    isOk,
+    prefix = 'CHECK_DEBUG',
+    ngMsg = '',
+    ErrorClass = Error,
+    eProps = {}
+  ) {
+    return Contracts.DEBUG_MODE
+      ? Contracts.#check(
+          isOk,
+          prefix,
+          ngMsg,
+          ErrorClass,
+          eProps
+        )
+      : isOk;
   }
+
 }

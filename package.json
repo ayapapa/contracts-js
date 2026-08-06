@@ -1,7 +1,7 @@
 {
   "name": "@ayapapa-npm/contracts-js",
-  "version": "0.2.1",
-  "description": "Design by Contract utilities for JavaScript: preconditions, postconditions, and invariants.",
+  "version": "0.2.2",
+  "description": "A lightweight Design by Contract library for JavaScript.",
   "license": "MIT",
   "author": "ayapapa",
   "type": "module",

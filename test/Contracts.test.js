@@ -12,10 +12,10 @@ describe('Contracts', () => {
   });
 
   it('throws an error with the contract prefix when the condition fails', () => {
-    expect(() => Contracts.VERIFY(false, 'failed')).toThrow('[VERIFY]failed');
-    expect(() => Contracts.REQUIRE(false, 'failed')).toThrow('[REQUIRE]failed');
-    expect(() => Contracts.ENSURE(false, 'failed')).toThrow('[ENSURE]failed');
-    expect(() => Contracts.INVARIANT(false, 'failed')).toThrow('[INVARIANT]failed');
+    expect(() => Contracts.VERIFY(false, 'failed')).toThrow('[VERIFY] failed');
+    expect(() => Contracts.REQUIRE(false, 'failed')).toThrow('[REQUIRE] failed');
+    expect(() => Contracts.ENSURE(false, 'failed')).toThrow('[ENSURE] failed');
+    expect(() => Contracts.INVARIANT(false, 'failed')).toThrow('[INVARIANT] failed');
   });
 
   it('uses the supplied error class and custom properties', () => {
@@ -27,7 +27,7 @@ describe('Contracts', () => {
       Contracts.VERIFY(false, 'failed', ContractError, { code: 'E_CONTRACT' });
     } catch (error) {
       expect(error).toMatchObject({
-        message: '[VERIFY]failed',
+        message: '[VERIFY] failed',
         code: 'E_CONTRACT',
       });
     }
@@ -37,7 +37,7 @@ describe('Contracts', () => {
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(Contracts.VERIFY(false, 'failed', null, { code: 'E_CONTRACT' })).toBe(false);
-    expect(error).toHaveBeenCalledWith('[VERIFY]failed', { code: 'E_CONTRACT' });
+    expect(error).toHaveBeenCalledWith('[VERIFY] failed', { code: 'E_CONTRACT' });
 
     error.mockRestore();
   });
@@ -51,7 +51,7 @@ describe('Contracts', () => {
   it('runs debug checks when debug mode is enabled', () => {
     Contracts.DEBUG_MODE = true;
 
-    expect(() => Contracts.VERIFY_DEBUG(false, 'failed')).toThrow('[VERIFY_DEBUG]failed');
+    expect(() => Contracts.VERIFY_DEBUG(false, 'failed')).toThrow('[VERIFY_DEBUG] failed');
 
     Contracts.DEBUG_MODE = false;
   });
