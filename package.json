@@ -1,6 +1,6 @@
 {
   "name": "@ayapapa-npm/contracts-js",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A lightweight Design by Contract library for JavaScript.",
   "license": "MIT",
   "author": "ayapapa",

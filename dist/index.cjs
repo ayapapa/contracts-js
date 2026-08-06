@@ -54,7 +54,7 @@ var _Contracts = class _Contracts {
    * Contracts.setConfig({ debug: true });
    */
   static setConfig(config) {
-    _Contracts.DEBUG_MODE = Boolean(config.debug);
+    _Contracts.DEBUG_MODE = Boolean(config?.debug);
   }
   /**
    * Verifies an intermediate condition during execution.

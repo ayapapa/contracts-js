@@ -63,4 +63,13 @@ describe('Contracts', () => {
 
     Contracts.DEBUG_MODE = false;
   });
+
+  it('sets undefined config', () => {
+    Contracts.setConfig();
+
+    expect(Contracts.DEBUG_MODE).toBe(false);
+
+    Contracts.DEBUG_MODE = false;
+  });
+
 });

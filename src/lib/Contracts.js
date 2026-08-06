@@ -59,7 +59,7 @@ export class Contracts {
    * Contracts.setConfig({ debug: true });
    */
   static setConfig(config) {
-    Contracts.DEBUG_MODE = Boolean(config.debug);
+    Contracts.DEBUG_MODE = Boolean(config?.debug);
   }
 
 
