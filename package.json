@@ -18,10 +18,13 @@
   ],
   "scripts": {
     "build": "tsup src/index.js --format esm,cjs --out-dir dist --clean --dts",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:debug": "vitest --inspect-brk --run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run build && npm test"
+    "check": "npm run typecheck && npm run build && npm run test",
+    "release:check": "npm run typecheck && npm run build && npm run test",
+    "prepublishOnly": "npm run release:check"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

@@ -1,11 +1,12 @@
 'use strict';
 
 /**
- * Design by Contract utilities.
- *
- * Provides runtime contract checks based on
- * Design by Contract principles.
- *
+ * A lightweight Design by Contract library for JavaScript.
+ * 
+ * Provides runtime contract checks based on Design by Contract principles.
+ * All check functions return the evaluated condition itself, 
+ * so they can be used directly in control flow when exception throwing is suppressed.
+ * 
  * ## Contract Types
  *
  * - REQUIRE (Precondition)
