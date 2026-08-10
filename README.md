@@ -1,3 +1,4 @@
+[![CI](https://github.com/ayapapa/contracts-js/actions/workflows/ci.yml/badge.svg)](https://github.com/ayapapa/contracts-js/actions/workflows/ci.yml)
 # contracts-js
 A lightweight Design by Contract library for JavaScript.</br>
 Provides runtime contract checks based on Design by Contract principles.</br>

@@ -1,20 +1,21 @@
-var __defProp = Object.defineProperty;
-var __typeError = (msg) => {
-  throw TypeError(msg);
-};
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
-var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
-
-// src/lib/Contracts.js
-var _Contracts_static, check_fn, checkDebug_fn;
-var _Contracts = class _Contracts {
+// src/lib/Contracts.ts
+var Contracts = class _Contracts {
+  /** 
+   * Static fields
+   */
+  /** Debug mode state */
+  static DEBUG_MODE = false;
+  /** default configuration */
+  static defaultConf = {
+    debug: false,
+    logger: console
+  };
+  /** logger */
+  static logger = console;
   /**
    * Configures contract checking behavior.
    *
-   * @param {{debug?: boolean}} config
+   * @param config
    * Configuration options.
    *
    * The `debug` property enables or disables
@@ -25,12 +26,22 @@ var _Contracts = class _Contracts {
    *
    * When `debug` is `false` or omitted,
    * methods ending with `_DEBUG` skip validation.
+   * 
+   * Is the `logger` property is specified, 
+   * it is used instead of the standard logger, `console`.
+   * This module uses only the `error` method.
    *
    * @example
-   * Contracts.setConfig({ debug: true });
+   * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
+   * import { PrettyConsole } from '@ayapapa-npm/pretty-console-js';
+   * 
+   * const prettyConsole = new PrettyConsole();
+   * Contracts.setConfig({ debug: true, logger: prettyConsole });
+   * // Node: ` The `logger` property is optional.
    */
   static setConfig(config) {
     _Contracts.DEBUG_MODE = Boolean(config?.debug);
+    _Contracts.logger = config?.logger ?? console;
   }
   /**
    * Verifies an intermediate condition during execution.
@@ -49,13 +60,13 @@ var _Contracts = class _Contracts {
    * - Confirm internal processing states.
    * - Check temporary assumptions during execution.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -65,10 +76,10 @@ var _Contracts = class _Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -80,8 +91,13 @@ var _Contracts = class _Contracts {
    * );
    */
   static VERIFY(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, check_fn).call(_a, isOk, "VERIFY", ngMsg, ErrorClass, eProps);
+    return _Contracts.check(
+      isOk,
+      "VERIFY",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Verifies an intermediate condition in debug mode only.
@@ -96,19 +112,26 @@ var _Contracts = class _Contracts {
    * - Validate intermediate results during development.
    * - Check internal assumptions while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -118,8 +141,13 @@ var _Contracts = class _Contracts {
    * );
    */
   static VERIFY_DEBUG(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, checkDebug_fn).call(_a, isOk, "VERIFY_DEBUG", ngMsg, ErrorClass, eProps);
+    return _Contracts.checkDebug(
+      isOk,
+      "VERIFY_DEBUG",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks a precondition before execution.
@@ -134,13 +162,13 @@ var _Contracts = class _Contracts {
    * - Validate required object state.
    * - Check required external conditions.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -150,10 +178,10 @@ var _Contracts = class _Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -172,8 +200,13 @@ var _Contracts = class _Contracts {
    * }
    */
   static REQUIRE(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, check_fn).call(_a, isOk, "REQUIRE", ngMsg, ErrorClass, eProps);
+    return _Contracts.check(
+      isOk,
+      "REQUIRE",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks a precondition in debug mode only.
@@ -188,19 +221,26 @@ var _Contracts = class _Contracts {
    * - Validate assumptions during development.
    * - Perform additional argument checks while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -210,8 +250,13 @@ var _Contracts = class _Contracts {
    * );
    */
   static REQUIRE_DEBUG(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, checkDebug_fn).call(_a, isOk, "REQUIRE_DEBUG", ngMsg, ErrorClass, eProps);
+    return _Contracts.checkDebug(
+      isOk,
+      "REQUIRE_DEBUG",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks a postcondition after execution.
@@ -227,13 +272,13 @@ var _Contracts = class _Contracts {
    * - Confirm state changes.
    * - Verify that processing completed correctly.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -243,10 +288,10 @@ var _Contracts = class _Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -267,8 +312,13 @@ var _Contracts = class _Contracts {
    * }
    */
   static ENSURE(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, check_fn).call(_a, isOk, "ENSURE", ngMsg, ErrorClass, eProps);
+    return _Contracts.check(
+      isOk,
+      "ENSURE",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks a postcondition in debug mode only.
@@ -283,19 +333,26 @@ var _Contracts = class _Contracts {
    * - Validate detailed results during development.
    * - Confirm internal behavior while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -305,8 +362,13 @@ var _Contracts = class _Contracts {
    * );
    */
   static ENSURE_DEBUG(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, checkDebug_fn).call(_a, isOk, "ENSURE_DEBUG", ngMsg, ErrorClass, eProps);
+    return _Contracts.checkDebug(
+      isOk,
+      "ENSURE_DEBUG",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks an invariant condition.
@@ -322,13 +384,13 @@ var _Contracts = class _Contracts {
    * In Design by Contract terminology,
    * INVARIANT represents conditions that must always remain true.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -338,10 +400,10 @@ var _Contracts = class _Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -359,8 +421,13 @@ var _Contracts = class _Contracts {
    * }
    */
   static INVARIANT(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, check_fn).call(_a, isOk, "INVARIANT", ngMsg, ErrorClass, eProps);
+    return _Contracts.check(
+      isOk,
+      "INVARIANT",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
   }
   /**
    * Checks an invariant condition in debug mode only.
@@ -375,19 +442,26 @@ var _Contracts = class _Contracts {
    * - Validate object consistency during development.
    * - Detect unexpected state changes while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -397,36 +471,106 @@ var _Contracts = class _Contracts {
    * );
    */
   static INVARIANT_DEBUG(isOk, ngMsg, ErrorClass = Error, eProps = {}) {
-    var _a;
-    return __privateMethod(_a = _Contracts, _Contracts_static, checkDebug_fn).call(_a, isOk, "INVARIANT_DEBUG", ngMsg, ErrorClass, eProps);
+    return _Contracts.checkDebug(
+      isOk,
+      "INVARIANT_DEBUG",
+      ngMsg,
+      ErrorClass,
+      eProps
+    );
+  }
+  /**
+   * Core contract evaluation logic.
+   *
+   * Evaluates a condition and handles failures.
+   * All public contract methods delegate to this method.
+   *
+   * Behavior:
+   * - When the condition is true, returns the original value.
+   * - When the condition is false and ErrorClass is specified,
+   *   throws an instance of the specified error class.
+   * - When ErrorClass is null,
+   *   logs the failure message instead of throwing.
+   *
+   * @param isOk
+   * Condition result.
+   *
+   * @param prefix
+   * Contract type prefix used in the error message.
+   *
+   * @param ngMsg
+   * Failure message.
+   *
+   * @param ErrorClass
+   * Error constructor.
+   *
+   * @param eProps
+   * Additional properties assigned to the error object.
+   *
+   * @returns
+   * Returns the original condition value.
+   *
+   */
+  static check(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eProps = {}) {
+    if (!isOk) {
+      const msg = `[${prefix}] ${ngMsg ?? ""}`;
+      if (ErrorClass) {
+        throw Object.assign(
+          new ErrorClass(msg),
+          eProps
+        );
+      }
+      if (ngMsg) {
+        _Contracts.getLogger().error(msg, eProps);
+      }
+    }
+    return isOk;
+  }
+  /**
+   * Debug-only contract evaluation logic.
+   *
+   * Executes contract validation only when DEBUG_MODE
+   * is enabled.
+   *
+   * When DEBUG_MODE is disabled,
+   * this method returns the original condition value
+   * without performing any validation.
+   *
+   * @param isOk
+   * Condition result.
+   *
+   * @param prefix
+   * Contract type prefix used in the error message.
+   *
+   * @param ngMsg
+   * Failure message.
+   *
+   * @param ErrorClass
+   * Error constructor.
+   *
+   * @param eProps
+   * Additional properties assigned to the error object.
+   *
+   * @returns
+   * Returns the original condition value.
+   *
+   */
+  static checkDebug(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eProps = {}) {
+    return _Contracts.DEBUG_MODE ? _Contracts.check(
+      isOk,
+      prefix,
+      ngMsg,
+      ErrorClass,
+      eProps
+    ) : isOk;
+  }
+  /** Get logger */
+  static getLogger() {
+    return _Contracts.logger ?? console;
   }
 };
-_Contracts_static = new WeakSet();
-check_fn = function(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eProps = {}) {
-  if (!isOk) {
-    const msg = `[${prefix}] ${ngMsg ?? ""}`;
-    if (ErrorClass) {
-      throw Object.assign(
-        new ErrorClass(msg),
-        eProps
-      );
-    }
-    if (ngMsg) {
-      console.error(msg, eProps);
-    }
-  }
-  return isOk;
-};
-checkDebug_fn = function(isOk, prefix = "CHECK_DEBUG", ngMsg = "", ErrorClass = Error, eProps = {}) {
-  var _a;
-  return _Contracts.DEBUG_MODE ? __privateMethod(_a = _Contracts, _Contracts_static, check_fn).call(_a, isOk, prefix, ngMsg, ErrorClass, eProps) : isOk;
-};
-__privateAdd(_Contracts, _Contracts_static);
-/** @type {boolean} Debug mode state */
-__publicField(_Contracts, "DEBUG_MODE", false);
-var Contracts = _Contracts;
 
-// src/index.js
+// src/index.ts
 var index_default = Contracts;
 export {
   Contracts,

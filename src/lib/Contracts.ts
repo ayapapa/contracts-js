@@ -1,4 +1,27 @@
-'use strict';
+/** 
+ * Type of the console replacement object
+ */
+export type LogProvider = Pick<Console,  'error'>;
+
+/**
+ * Configuration
+ */
+
+export interface Config {
+  /**
+   * Debug mode state.
+   * If `true`, `DEBUG_MODE` is enabled; otherwise, it is disabled.
+   * The default is `false`.
+   */
+  debug: boolean;
+
+  /**
+   * External logger.
+   * If specified, it is used instead of the standard logger, `console`.
+   * This module uses only the `error` method.
+   */
+  logger: LogProvider;
+}
 
 /**
  * A lightweight Design by Contract library for JavaScript.
@@ -38,13 +61,26 @@
  */
 export class Contracts {
 
-  /** @type {boolean} Debug mode state */
-  static DEBUG_MODE = false;
+  /** 
+   * Static fields
+   */
+
+  /** Debug mode state */
+  public static DEBUG_MODE: boolean = false;
+
+  /** default configuration */
+  private static readonly defaultConf: Config  = {
+    debug:  false,
+    logger: console
+  };
+
+  /** logger */
+  private static logger: LogProvider = console;
 
   /**
    * Configures contract checking behavior.
    *
-   * @param {{debug?: boolean}} config
+   * @param config
    * Configuration options.
    *
    * The `debug` property enables or disables
@@ -55,14 +91,23 @@ export class Contracts {
    *
    * When `debug` is `false` or omitted,
    * methods ending with `_DEBUG` skip validation.
+   * 
+   * Is the `logger` property is specified, 
+   * it is used instead of the standard logger, `console`.
+   * This module uses only the `error` method.
    *
    * @example
-   * Contracts.setConfig({ debug: true });
+   * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
+   * import { PrettyConsole } from '@ayapapa-npm/pretty-console-js';
+   * 
+   * const prettyConsole = new PrettyConsole();
+   * Contracts.setConfig({ debug: true, logger: prettyConsole });
+   * // Node: ` The `logger` property is optional.
    */
-  static setConfig(config) {
+  public static setConfig(config: Config): void {
     Contracts.DEBUG_MODE = Boolean(config?.debug);
+    Contracts.logger = (config?.logger)?? console;
   }
-
 
   /**
    * Verifies an intermediate condition during execution.
@@ -81,13 +126,13 @@ export class Contracts {
    * - Confirm internal processing states.
    * - Check temporary assumptions during execution.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -97,10 +142,10 @@ export class Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -111,13 +156,13 @@ export class Contracts {
    *   'Calculation result must not be negative'
    * );
    */
-  static VERIFY(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+  public static VERIFY(
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
-  ) {
-    return Contracts.#check(
+  ): boolean {
+    return Contracts.check(
       isOk,
       'VERIFY',
       ngMsg,
@@ -140,19 +185,26 @@ export class Contracts {
    * - Validate intermediate results during development.
    * - Check internal assumptions while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -162,12 +214,12 @@ export class Contracts {
    * );
    */
   static VERIFY_DEBUG(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#checkDebug(
+    return Contracts.checkDebug(
       isOk,
       'VERIFY_DEBUG',
       ngMsg,
@@ -189,13 +241,13 @@ export class Contracts {
    * - Validate required object state.
    * - Check required external conditions.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -205,10 +257,10 @@ export class Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -227,12 +279,12 @@ export class Contracts {
    * }
    */
   static REQUIRE(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#check(
+    return Contracts.check(
       isOk,
       'REQUIRE',
       ngMsg,
@@ -255,19 +307,26 @@ export class Contracts {
    * - Validate assumptions during development.
    * - Perform additional argument checks while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -277,12 +336,12 @@ export class Contracts {
    * );
    */
   static REQUIRE_DEBUG(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#checkDebug(
+    return Contracts.checkDebug(
       isOk,
       'REQUIRE_DEBUG',
       ngMsg,
@@ -306,13 +365,13 @@ export class Contracts {
    * - Confirm state changes.
    * - Verify that processing completed correctly.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -322,10 +381,10 @@ export class Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -346,12 +405,12 @@ export class Contracts {
    * }
    */
   static ENSURE(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#check(
+    return Contracts.check(
       isOk,
       'ENSURE',
       ngMsg,
@@ -374,19 +433,26 @@ export class Contracts {
    * - Validate detailed results during development.
    * - Confirm internal behavior while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -396,12 +462,12 @@ export class Contracts {
    * );
    */
   static ENSURE_DEBUG(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#checkDebug(
+    return Contracts.checkDebug(
       isOk,
       'ENSURE_DEBUG',
       ngMsg,
@@ -424,13 +490,13 @@ export class Contracts {
    * In Design by Contract terminology,
    * INVARIANT represents conditions that must always remain true.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
    * Supported values:
@@ -440,10 +506,10 @@ export class Contracts {
    * - Custom Error subclasses
    * - `null` to skip throwing and log the failure.
    *
-   * @param {Object<string, *>} [eProps]
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -461,12 +527,12 @@ export class Contracts {
    * }
    */
   static INVARIANT(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#check(
+    return Contracts.check(
       isOk,
       'INVARIANT',
       ngMsg,
@@ -489,19 +555,26 @@ export class Contracts {
    * - Validate object consistency during development.
    * - Detect unexpected state changes while debugging.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result to verify.
    *
-   * @param {string|null} [ngMsg]
+   * @param [ngMsg]
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} [ErrorClass=Error]
+   * @param [ErrorClass=Error]
    * Error constructor used when the check fails.
    *
-   * @param {Object<string, *>} [eProps]
+   * Supported values:
+   * - `Error` (default)
+   * - `TypeError`
+   * - `RangeError`
+   * - Custom Error subclasses
+   * - `null` to skip throwing and log the failure.
+   *
+   * @param [eProps = {}]
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns 
    * Returns the original condition value.
    *
    * @example
@@ -511,12 +584,12 @@ export class Contracts {
    * );
    */
   static INVARIANT_DEBUG(
-    isOk,
-    ngMsg,
-    ErrorClass = Error,
+    isOk: boolean,
+    ngMsg: string | null,
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
-    return Contracts.#checkDebug(
+    return Contracts.checkDebug(
       isOk,
       'INVARIANT_DEBUG',
       ngMsg,
@@ -539,30 +612,30 @@ export class Contracts {
    * - When ErrorClass is null,
    *   logs the failure message instead of throwing.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result.
    *
-   * @param {string} prefix
+   * @param prefix
    * Contract type prefix used in the error message.
    *
-   * @param {string|null} ngMsg
+   * @param ngMsg
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} ErrorClass
+   * @param ErrorClass
    * Error constructor.
    *
-   * @param {Object<string, *>} eProps
+   * @param eProps
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns
    * Returns the original condition value.
    *
    */
-  static #check(
-    isOk,
-    prefix = 'CHECK',
-    ngMsg = '',
-    ErrorClass = Error,
+  private static check(
+    isOk: boolean,
+    prefix: string = 'CHECK',
+    ngMsg: string | null = '',
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
     if (!isOk) {
@@ -576,7 +649,7 @@ export class Contracts {
       }
 
       if (ngMsg) {
-        console.error(msg, eProps);
+        Contracts.getLogger().error(msg, eProps);
       }
     }
 
@@ -594,34 +667,34 @@ export class Contracts {
    * this method returns the original condition value
    * without performing any validation.
    *
-   * @param {boolean} isOk
+   * @param isOk
    * Condition result.
    *
-   * @param {string} prefix
+   * @param prefix
    * Contract type prefix used in the error message.
    *
-   * @param {string|null} ngMsg
+   * @param ngMsg
    * Failure message.
    *
-   * @param {(new (...args:any[])=>Error)|null} ErrorClass
+   * @param ErrorClass
    * Error constructor.
    *
-   * @param {Object<string, *>} eProps
+   * @param eProps
    * Additional properties assigned to the error object.
    *
-   * @returns {boolean}
+   * @returns
    * Returns the original condition value.
    *
    */
-  static #checkDebug(
-    isOk,
-    prefix = 'CHECK_DEBUG',
-    ngMsg = '',
-    ErrorClass = Error,
+  static checkDebug(
+    isOk: boolean,
+    prefix: string = 'CHECK',
+    ngMsg: string | null = '',
+    ErrorClass: (new (...args:any[])=>Error) | null = Error,
     eProps = {}
   ) {
     return Contracts.DEBUG_MODE
-      ? Contracts.#check(
+      ? Contracts.check(
           isOk,
           prefix,
           ngMsg,
@@ -631,4 +704,8 @@ export class Contracts {
       : isOk;
   }
 
+  /** Get logger */
+  private static getLogger(): LogProvider {
+    return Contracts.logger ?? console;
+  }
 }
