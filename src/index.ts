@@ -1,3 +1,3 @@
-import { Contracts, LogProvider, Config } from './lib/Contracts.ts';
-export { Contracts, LogProvider, Config };
+import { Contracts, type Config, type ConfigKey, type LogProvider } from './lib/Contracts.ts';
+export { Contracts, type Config, type ConfigKey, type LogProvider };
 export default Contracts;

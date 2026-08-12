@@ -11,14 +11,16 @@ interface Config {
      * If `true`, `DEBUG_MODE` is enabled; otherwise, it is disabled.
      * The default is `false`.
      */
-    debug: boolean;
+    debug?: boolean;
     /**
      * External logger.
      * If specified, it is used instead of the standard logger, `console`.
      * This module uses only the `error` method.
      */
-    logger: LogProvider;
+    logger?: LogProvider;
 }
+/** Type of `Config`'s key. */
+type ConfigKey = keyof Config;
 /**
  * A lightweight Design by Contract library for JavaScript.
  *
@@ -82,7 +84,7 @@ declare class Contracts {
      *
      * Is the `logger` property is specified,
      * it is used instead of the standard logger, `console`.
-     * This module uses only the `error` method.
+     * This module uses only the `error` method of the `logger`.
      *
      * @example
      * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -478,6 +480,9 @@ declare class Contracts {
      * - When ErrorClass is null,
      *   logs the failure message instead of throwing.
      *
+     *
+     * @internal
+     *
      * @param isOk
      * Condition result.
      *
@@ -508,6 +513,8 @@ declare class Contracts {
      * this method returns the original condition value
      * without performing any validation.
      *
+     * @internal
+     *
      * @param isOk
      * Condition result.
      *
@@ -527,9 +534,13 @@ declare class Contracts {
      * Returns the original condition value.
      *
      */
-    static checkDebug(isOk: boolean, prefix?: string, ngMsg?: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
-    /** Get logger */
+    private static checkDebug;
+    /**
+     * Get logger
+     *
+     * @internal
+     */
     private static getLogger;
 }
 
-export { type Config, Contracts, type LogProvider, Contracts as default };
+export { type Config, type ConfigKey, Contracts, type LogProvider, Contracts as default };

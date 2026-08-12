@@ -13,15 +13,18 @@ export interface Config {
    * If `true`, `DEBUG_MODE` is enabled; otherwise, it is disabled.
    * The default is `false`.
    */
-  debug: boolean;
+  debug?: boolean;
 
   /**
    * External logger.
    * If specified, it is used instead of the standard logger, `console`.
    * This module uses only the `error` method.
    */
-  logger: LogProvider;
+  logger?: LogProvider;
 }
+
+/** Type of `Config`'s key. */
+export type ConfigKey = keyof Config;
 
 /**
  * A lightweight Design by Contract library for JavaScript.
@@ -94,7 +97,7 @@ export class Contracts {
    * 
    * Is the `logger` property is specified, 
    * it is used instead of the standard logger, `console`.
-   * This module uses only the `error` method.
+   * This module uses only the `error` method of the `logger`.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -213,7 +216,7 @@ export class Contracts {
    *   'Intermediate value must not be null'
    * );
    */
-  static VERIFY_DEBUG(
+  public static VERIFY_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -278,7 +281,7 @@ export class Contracts {
    *   return a / b;
    * }
    */
-  static REQUIRE(
+  public static REQUIRE(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -335,7 +338,7 @@ export class Contracts {
    *   'User must exist during debugging'
    * );
    */
-  static REQUIRE_DEBUG(
+  public static REQUIRE_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -404,7 +407,7 @@ export class Contracts {
    *   return result;
    * }
    */
-  static ENSURE(
+  public static ENSURE(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -461,7 +464,7 @@ export class Contracts {
    *   'Result should exist during debugging'
    * );
    */
-  static ENSURE_DEBUG(
+  public static ENSURE_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -526,7 +529,7 @@ export class Contracts {
    *
    * }
    */
-  static INVARIANT(
+  public static INVARIANT(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -583,7 +586,7 @@ export class Contracts {
    *   'Cache size exceeded expected limit'
    * );
    */
-  static INVARIANT_DEBUG(
+  public static INVARIANT_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
     ErrorClass: (new (...args:any[])=>Error) | null = Error,
@@ -612,6 +615,9 @@ export class Contracts {
    * - When ErrorClass is null,
    *   logs the failure message instead of throwing.
    *
+   *
+   * @internal
+   * 
    * @param isOk
    * Condition result.
    *
@@ -667,6 +673,8 @@ export class Contracts {
    * this method returns the original condition value
    * without performing any validation.
    *
+   * @internal
+   * 
    * @param isOk
    * Condition result.
    *
@@ -686,7 +694,7 @@ export class Contracts {
    * Returns the original condition value.
    *
    */
-  static checkDebug(
+  private static checkDebug(
     isOk: boolean,
     prefix: string = 'CHECK',
     ngMsg: string | null = '',
@@ -704,7 +712,11 @@ export class Contracts {
       : isOk;
   }
 
-  /** Get logger */
+  /** 
+   * Get logger 
+   *
+   * @internal
+   */
   private static getLogger(): LogProvider {
     return Contracts.logger ?? console;
   }

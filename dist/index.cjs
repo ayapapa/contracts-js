@@ -55,7 +55,7 @@ var Contracts = class _Contracts {
    * 
    * Is the `logger` property is specified, 
    * it is used instead of the standard logger, `console`.
-   * This module uses only the `error` method.
+   * This module uses only the `error` method of the `logger`.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -518,6 +518,9 @@ var Contracts = class _Contracts {
    * - When ErrorClass is null,
    *   logs the failure message instead of throwing.
    *
+   *
+   * @internal
+   * 
    * @param isOk
    * Condition result.
    *
@@ -562,6 +565,8 @@ var Contracts = class _Contracts {
    * this method returns the original condition value
    * without performing any validation.
    *
+   * @internal
+   * 
    * @param isOk
    * Condition result.
    *
@@ -590,7 +595,11 @@ var Contracts = class _Contracts {
       eProps
     ) : isOk;
   }
-  /** Get logger */
+  /** 
+   * Get logger 
+   *
+   * @internal
+   */
   static getLogger() {
     return _Contracts.logger ?? console;
   }
