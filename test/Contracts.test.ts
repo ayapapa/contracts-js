@@ -3,6 +3,15 @@ import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src
 
 class ContractError extends Error {}
 
+class ErrorWithOptions extends Error {
+  options: unknown;
+
+  constructor(message: string, options?: unknown) {
+    super(message);
+    this.options = options;
+  }
+}
+
 describe('Contracts', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -35,6 +44,42 @@ describe('Contracts', () => {
         message: '[VERIFY] failed',
         code: 'E_CONTRACT',
       });
+    }
+  });
+
+  it('passes constructor options to the supplied error class and assigns custom properties', () => {
+    expect.assertions(2);
+
+    try {
+      Contracts.VERIFY(
+        false,
+        'failed',
+        ErrorWithOptions,
+        { cause: 'root-cause' },
+        { code: 'E_CONTRACT' },
+      );
+    } catch (error) {
+      expect(error).toBeInstanceOf(ErrorWithOptions);
+      expect(error).toMatchObject({
+        message: '[VERIFY] failed',
+        options: { cause: 'root-cause' },
+        code: 'E_CONTRACT',
+      });
+    }
+  });
+
+  it('keeps the fourth argument compatible as custom properties', () => {
+    expect.assertions(3);
+
+    try {
+      Contracts.REQUIRE(false, 'failed', ErrorWithOptions, { code: 'E_REQUIRE' });
+    } catch (error) {
+      expect(error).toBeInstanceOf(ErrorWithOptions);
+      expect(error).toMatchObject({
+        message: '[REQUIRE] failed',
+        code: 'E_REQUIRE',
+      });
+      expect((error as ErrorWithOptions).options).toBeUndefined();
     }
   });
 

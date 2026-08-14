@@ -115,11 +115,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -128,7 +129,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -142,7 +146,11 @@ declare class Contracts {
      *   'Calculation result must not be negative'
      * );
      */
-    static VERIFY(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static VERIFY(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Verifies an intermediate condition in debug mode only.
      *
@@ -159,11 +167,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -172,7 +181,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -184,7 +196,11 @@ declare class Contracts {
      *   'Intermediate value must not be null'
      * );
      */
-    static VERIFY_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static VERIFY_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks a precondition before execution.
      *
@@ -201,11 +217,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -214,7 +231,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -235,7 +255,11 @@ declare class Contracts {
      *   return a / b;
      * }
      */
-    static REQUIRE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static REQUIRE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks a precondition in debug mode only.
      *
@@ -252,11 +276,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -265,7 +290,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -277,7 +305,11 @@ declare class Contracts {
      *   'User must exist during debugging'
      * );
      */
-    static REQUIRE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static REQUIRE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks a postcondition after execution.
      *
@@ -295,11 +327,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -308,7 +341,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -331,7 +367,11 @@ declare class Contracts {
      *   return result;
      * }
      */
-    static ENSURE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static ENSURE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks a postcondition in debug mode only.
      *
@@ -348,11 +388,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -361,7 +402,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -373,7 +417,11 @@ declare class Contracts {
      *   'Result should exist during debugging'
      * );
      */
-    static ENSURE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static ENSURE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks an invariant condition.
      *
@@ -391,11 +439,12 @@ declare class Contracts {
      * @param isOk
      * Condition result to verify.
      *
-     * @param [ngMsg]
+     * @param ngMsg
      * Failure message.
      *
-     * @param [ErrorClass=Error]
+     * @param ErrorClass
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -404,7 +453,10 @@ declare class Contracts {
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
      *
-     * @param [eProps = {}]
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
+     *
+     * @param eProps
      * Additional properties assigned to the error object.
      *
      * @returns
@@ -424,7 +476,11 @@ declare class Contracts {
      *
      * }
      */
-    static INVARIANT(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static INVARIANT(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Checks an invariant condition in debug mode only.
      *
@@ -446,6 +502,7 @@ declare class Contracts {
      *
      * @param [ErrorClass=Error]
      * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
      *
      * Supported values:
      * - `Error` (default)
@@ -453,6 +510,9 @@ declare class Contracts {
      * - `RangeError`
      * - Custom Error subclasses
      * - `null` to skip throwing and log the failure.
+     *
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
      *
      * @param [eProps = {}]
      * Additional properties assigned to the error object.
@@ -466,7 +526,11 @@ declare class Contracts {
      *   'Cache size exceeded expected limit'
      * );
      */
-    static INVARIANT_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eProps?: {}): boolean;
+    static INVARIANT_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: {
+        [key: string]: any;
+    } | null, eProps?: {
+        [key: string]: any;
+    } | null): boolean;
     /**
      * Core contract evaluation logic.
      *
@@ -493,7 +557,18 @@ declare class Contracts {
      * Failure message.
      *
      * @param ErrorClass
-     * Error constructor.
+     * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     *
+     * Supported values:
+     * - `Error` (default)
+     * - `TypeError`
+     * - `RangeError`
+     * - Custom Error subclasses
+     * - `null` to skip throwing and log the failure.
+     *
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
      *
      * @param eProps
      * Additional properties assigned to the error object.
@@ -524,8 +599,19 @@ declare class Contracts {
      * @param ngMsg
      * Failure message.
      *
-     * @param ErrorClass
-     * Error constructor.
+     * @param ErrorClass=Error
+     * Error constructor used when the check fails.
+     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     *
+     * Supported values:
+     * - `Error` (default)
+     * - `TypeError`
+     * - `RangeError`
+     * - Custom Error subclasses
+     * - `null` to skip throwing and log the failure.
+     *
+     * @param eParams
+     * Parameter options following the message passed to the Error constructor.
      *
      * @param eProps
      * Additional properties assigned to the error object.
