@@ -58,33 +58,38 @@ type ConfigKey = keyof Config;
  * @module Contracts
  */
 declare class Contracts {
+    #private;
     /**
      * Static fields
      */
     /** Debug mode state */
     static DEBUG_MODE: boolean;
-    /** default configuration */
-    private static readonly defaultConf;
     /** logger */
-    private static logger;
     /**
      * Configures contract checking behavior.
      *
      * @param config
-     * Configuration options.
-     *
-     * The `debug` property enables or disables
-     * debug-only contract checks.
-     *
+     * Configuration options. <br>
+     * <br>
+     * The `debug` property toggles the behavior—specifically,
+     * throwing an exception or outputting to the console when the condition is
+     * false—for the validation of contracts intended for use during debugging (methods ending in `_DEBUG`). <br>
+     * <br>
      * When `debug` is `true`,
-     * methods ending with `_DEBUG` perform validation.
-     *
-     * When `debug` is `false` or omitted,
-     * methods ending with `_DEBUG` skip validation.
-     *
+     * methods ending with `_DEBUG` perform validation. <br>
+     * <br>
+     * When `debug` is `false`,
+     * methods ending with `_DEBUG` skip validation. <br>
+     *  <br>
      * Is the `logger` property is specified,
      * it is used instead of the standard logger, `console`.
-     * This module uses only the `error` method of the `logger`.
+     * This module uses only the `error` method of the `logger`. <br>
+     * <br>
+     * Note: If the value of a property is `undefined`, it is treated as unspecified.
+     *
+     * @param reset
+     * If `true`, unspecified values ​​are saved to the settings as default values. <br>
+     * If `false`, unspecified values ​​remain at their current settings.
      *
      * @example
      * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -94,7 +99,22 @@ declare class Contracts {
      * Contracts.setConfig({ debug: true, logger: prettyConsole });
      * // Node: ` The `logger` property is optional.
      */
-    static setConfig(config: Config): void;
+    static setConfig(config: Config, reset?: boolean): void;
+    /**
+     * Get the default configurations.
+     * @returns Default configurations.
+     */
+    static getDefaultConfig(): Required<Config>;
+    /**
+     * Get the current configurations.
+     * @returns Default configurations.
+     */
+    static getConfig(): Required<Config>;
+    /**
+     * Reset the current configurations to the default configurations.
+     * @returns Default configurations.
+     */
+    static resetConfig(): void;
     /**
      * Verifies an intermediate condition during execution.
      *
@@ -113,7 +133,7 @@ declare class Contracts {
      * - Check temporary assumptions during execution.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -165,7 +185,7 @@ declare class Contracts {
      * - Check internal assumptions while debugging.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -215,7 +235,7 @@ declare class Contracts {
      * - Check required external conditions.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -274,7 +294,7 @@ declare class Contracts {
      * - Perform additional argument checks while debugging.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -325,7 +345,7 @@ declare class Contracts {
      * - Verify that processing completed correctly.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -386,7 +406,7 @@ declare class Contracts {
      * - Confirm internal behavior while debugging.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -437,7 +457,7 @@ declare class Contracts {
      * INVARIANT represents conditions that must always remain true.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -495,7 +515,7 @@ declare class Contracts {
      * - Detect unexpected state changes while debugging.
      *
      * @param isOk
-     * Condition result to verify.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param [ngMsg]
      * Failure message.
@@ -548,7 +568,7 @@ declare class Contracts {
      * @internal
      *
      * @param isOk
-     * Condition result.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param prefix
      * Contract type prefix used in the error message.
@@ -591,7 +611,7 @@ declare class Contracts {
      * @internal
      *
      * @param isOk
-     * Condition result.
+     * Condition result(`boolean`)  to be verified.
      *
      * @param prefix
      * Contract type prefix used in the error message.

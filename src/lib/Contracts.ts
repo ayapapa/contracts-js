@@ -72,32 +72,42 @@ export class Contracts {
   public static DEBUG_MODE: boolean = false;
 
   /** default configuration */
-  private static readonly defaultConf: Config  = {
+  static readonly #defaultConf: Readonly<Required<Config>>  = {
     debug:  false,
     logger: console
   };
 
+  /** Current config. */
+  static #config: Required<Config> = { ...Contracts.#defaultConf };
+
   /** logger */
-  private static logger: LogProvider = console;
+  //private static logger: LogProvider = console;
 
   /**
    * Configures contract checking behavior.
    *
    * @param config
-   * Configuration options.
-   *
-   * The `debug` property enables or disables
-   * debug-only contract checks.
-   *
+   * Configuration options. <br>
+   * <br>
+   * The `debug` property toggles the behavior—specifically, 
+   * throwing an exception or outputting to the console when the condition is 
+   * false—for the validation of contracts intended for use during debugging (methods ending in `_DEBUG`). <br>
+   * <br>
    * When `debug` is `true`,
-   * methods ending with `_DEBUG` perform validation.
-   *
-   * When `debug` is `false` or omitted,
-   * methods ending with `_DEBUG` skip validation.
-   * 
+   * methods ending with `_DEBUG` perform validation. <br>
+   * <br>
+   * When `debug` is `false`,
+   * methods ending with `_DEBUG` skip validation. <br>
+   *  <br>
    * Is the `logger` property is specified, 
    * it is used instead of the standard logger, `console`.
-   * This module uses only the `error` method of the `logger`.
+   * This module uses only the `error` method of the `logger`. <br>
+   * <br>
+   * Note: If the value of a property is `undefined`, it is treated as unspecified.
+   * 
+   * @param reset
+   * If `true`, unspecified values ​​are saved to the settings as default values. <br>
+   * If `false`, unspecified values ​​remain at their current settings.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -107,9 +117,40 @@ export class Contracts {
    * Contracts.setConfig({ debug: true, logger: prettyConsole });
    * // Node: ` The `logger` property is optional.
    */
-  public static setConfig(config: Config): void {
-    Contracts.DEBUG_MODE = Boolean(config?.debug);
-    Contracts.logger = (config?.logger)?? console;
+  public static setConfig(config: Config, reset:boolean = true): void {
+    const rConf = { ...config };
+    // Remove properties specified as undefined or null.
+    for (let key of Object.keys(rConf) as Array<ConfigKey>) {
+      if (rConf[key] == null) delete rConf[key];
+    }
+    if (reset) Contracts.#config = { ...Contracts.getDefaultConfig() };
+    Object.assign(Contracts.#config, rConf);
+    Contracts.DEBUG_MODE = Contracts.#config.debug;
+  }
+
+  /**
+   * Get the default configurations.
+   * @returns Default configurations.
+   */
+  public static getDefaultConfig(): Required<Config> {
+    return { ...Contracts.#defaultConf };
+  }
+
+  /**
+   * Get the current configurations.
+   * @returns Default configurations.
+   */
+  public static getConfig(): Required<Config> {
+    Contracts.#config.debug = Contracts.DEBUG_MODE;
+    return { ...Contracts.#config };
+  }
+
+  /**
+   * Reset the current configurations to the default configurations.
+   * @returns Default configurations.
+   */
+  public static resetConfig(): void {
+    Contracts.setConfig({}, true);
   }
 
   /**
@@ -130,7 +171,7 @@ export class Contracts {
    * - Check temporary assumptions during execution.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -195,7 +236,7 @@ export class Contracts {
    * - Check internal assumptions while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -257,7 +298,7 @@ export class Contracts {
    * - Check required external conditions.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -329,7 +370,7 @@ export class Contracts {
    * - Perform additional argument checks while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -393,7 +434,7 @@ export class Contracts {
    * - Verify that processing completed correctly.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -467,7 +508,7 @@ export class Contracts {
    * - Confirm internal behavior while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -530,7 +571,7 @@ export class Contracts {
    * INVARIANT represents conditions that must always remain true.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -601,7 +642,7 @@ export class Contracts {
    * - Detect unexpected state changes while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param [ngMsg]
    * Failure message.
@@ -667,7 +708,7 @@ export class Contracts {
    * @internal
    * 
    * @param isOk
-   * Condition result.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param prefix
    * Contract type prefix used in the error message.
@@ -716,9 +757,9 @@ export class Contracts {
 
       if (ErrorClass) {
         const err = eParams ? new ErrorClass(msg, eParams) : new ErrorClass(msg);
-        if (eProps) {
-          Object.assign(err, eProps);
-        }
+        // Avoid using `if` statements to circumvent issues with coverage tools.
+        eProps && Object.assign(err, eProps);
+
         throw err;
       }
 
@@ -743,7 +784,7 @@ export class Contracts {
    * @internal
    * 
    * @param isOk
-   * Condition result.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param prefix
    * Contract type prefix used in the error message.
@@ -798,7 +839,7 @@ export class Contracts {
    * @internal
    */
   private static getLogger(): LogProvider {
-    return Contracts.logger ?? console;
+    return Contracts.#config.logger;
   }
 
 }

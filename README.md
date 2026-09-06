@@ -1,4 +1,10 @@
 [![CI](https://github.com/ayapapa/contracts-js/actions/workflows/ci.yml/badge.svg)](https://github.com/ayapapa/contracts-js/actions/workflows/ci.yml)
+![Coverage](https://raw.githubusercontent.com/ayapapa/pretty-console-js/main/badges/coverage-total.svg)
+![Branches](https://raw.githubusercontent.com/ayapapa/pretty-console-js/main/badges/coverage-branches.svg)
+![Functions](https://raw.githubusercontent.com/ayapapa/pretty-console-js/main/badges/coverage-functions.svg)
+![Lines](https://raw.githubusercontent.com/ayapapa/pretty-console-js/main/badges/coverage-lines.svg)
+![Statements](https://raw.githubusercontent.com/ayapapa/pretty-console-js/main/badges/coverage-statements.svg)
+
 # contracts-js
 A lightweight Design by Contract library for JavaScript.</br>
 Provides runtime contract checks based on Design by Contract principles.</br>
@@ -125,6 +131,9 @@ Contracts.INVARIANT(
   'Balance cannot be negative'
 );
 ```
+
+## API Reference
+[API document](docs/api.md)
 
 ## Usage
 
