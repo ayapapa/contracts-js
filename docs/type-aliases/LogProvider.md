@@ -8,6 +8,6 @@
 
 > **LogProvider** = `Pick`\<`Console`, `"error"`\>
 
-Defined in: [lib/Contracts.ts:4](https://github.com/ayapapa/contracts-js/blob/7504b8f8339a71c0a2763bb4b38ff300eb2c3bb7/src/lib/Contracts.ts#L4)
+Defined in: [lib/Contracts.ts:4](https://github.com/ayapapa/contracts-js/blob/c8522bb53be039a9172e93da9c75caeb0213746d/src/lib/Contracts.ts#L4)
 
 Type of the console replacement object
