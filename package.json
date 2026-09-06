@@ -1,6 +1,6 @@
 {
   "name": "@ayapapa-npm/contracts-js",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A lightweight Design by Contract library for JavaScript.",
   "license": "MIT",
   "author": "ayapapa",
@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --out-dir dist --clean --dts",
+    "build:doc": "npx typedoc && node scripts/rename-docs.cjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:debug": "vitest --inspect-brk --run",
@@ -26,8 +27,7 @@
     "coverage": "vitest run --coverage",
     "coverage:ui": "vitest run --coverage && start coverage/index.html",
     "check": "npm run typecheck && npm run build && npm run test",
-    "release:check": "npm run check",
-    "prepublishOnly": "npm run release:check"
+    "prepublishOnly": "npm run check"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",

@@ -68,7 +68,11 @@ export class Contracts {
    * Static fields
    */
 
-  /** Debug mode state */
+  /** 
+   * Debug mode state.<br>
+   * **Note: This property is retained for backward compatibility.<br>
+   * Please use `setConfig()` to change the debug mode.**
+   */
   public static DEBUG_MODE: boolean = false;
 
   /** default configuration */
