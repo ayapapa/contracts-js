@@ -76,8 +76,12 @@ var Contracts = class _Contracts {
    * // Node: ` The `logger` property is optional.
    */
   static setConfig(config, reset = true) {
+    const rConf = { ...config };
+    for (let key of Object.keys(rConf)) {
+      if (rConf[key] == null) delete rConf[key];
+    }
     if (reset) _Contracts.#config = { ..._Contracts.getDefaultConfig() };
-    Object.assign(_Contracts.#config, config);
+    Object.assign(_Contracts.#config, rConf);
     _Contracts.DEBUG_MODE = _Contracts.#config.debug;
   }
   /**
@@ -635,9 +639,7 @@ var Contracts = class _Contracts {
       const msg = `[${prefix}] ${ngMsg ?? ""}`;
       if (ErrorClass) {
         const err = eParams ? new ErrorClass(msg, eParams) : new ErrorClass(msg);
-        if (eProps) {
-          Object.assign(err, eProps);
-        }
+        eProps && Object.assign(err, eProps);
         throw err;
       }
       if (ngMsg) {
