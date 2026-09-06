@@ -6,30 +6,39 @@ var Contracts = class _Contracts {
   /** Debug mode state */
   static DEBUG_MODE = false;
   /** default configuration */
-  static defaultConf = {
+  static #defaultConf = {
     debug: false,
     logger: console
   };
+  /** Current config. */
+  static #config = { ..._Contracts.#defaultConf };
   /** logger */
-  static logger = console;
+  //private static logger: LogProvider = console;
   /**
    * Configures contract checking behavior.
    *
    * @param config
-   * Configuration options.
-   *
-   * The `debug` property enables or disables
-   * debug-only contract checks.
-   *
+   * Configuration options. <br>
+   * <br>
+   * The `debug` property toggles the behavior—specifically, 
+   * throwing an exception or outputting to the console when the condition is 
+   * false—for the validation of contracts intended for use during debugging (methods ending in `_DEBUG`). <br>
+   * <br>
    * When `debug` is `true`,
-   * methods ending with `_DEBUG` perform validation.
-   *
-   * When `debug` is `false` or omitted,
-   * methods ending with `_DEBUG` skip validation.
-   * 
+   * methods ending with `_DEBUG` perform validation. <br>
+   * <br>
+   * When `debug` is `false`,
+   * methods ending with `_DEBUG` skip validation. <br>
+   *  <br>
    * Is the `logger` property is specified, 
    * it is used instead of the standard logger, `console`.
-   * This module uses only the `error` method of the `logger`.
+   * This module uses only the `error` method of the `logger`. <br>
+   * <br>
+   * Note: If the value of a property is `undefined`, it is treated as unspecified.
+   * 
+   * @param reset
+   * If `true`, unspecified values ​​are saved to the settings as default values. <br>
+   * If `false`, unspecified values ​​remain at their current settings.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -39,9 +48,32 @@ var Contracts = class _Contracts {
    * Contracts.setConfig({ debug: true, logger: prettyConsole });
    * // Node: ` The `logger` property is optional.
    */
-  static setConfig(config) {
-    _Contracts.DEBUG_MODE = Boolean(config?.debug);
-    _Contracts.logger = config?.logger ?? console;
+  static setConfig(config, reset = true) {
+    if (reset) _Contracts.#config = { ..._Contracts.getDefaultConfig() };
+    Object.assign(_Contracts.#config, config);
+    _Contracts.DEBUG_MODE = _Contracts.#config.debug;
+  }
+  /**
+   * Get the default configurations.
+   * @returns Default configurations.
+   */
+  static getDefaultConfig() {
+    return { ..._Contracts.#defaultConf };
+  }
+  /**
+   * Get the current configurations.
+   * @returns Default configurations.
+   */
+  static getConfig() {
+    _Contracts.#config.debug = _Contracts.DEBUG_MODE;
+    return { ..._Contracts.#config };
+  }
+  /**
+   * Reset the current configurations to the default configurations.
+   * @returns Default configurations.
+   */
+  static resetConfig() {
+    _Contracts.setConfig({}, true);
   }
   /**
    * Verifies an intermediate condition during execution.
@@ -61,7 +93,7 @@ var Contracts = class _Contracts {
    * - Check temporary assumptions during execution.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -118,7 +150,7 @@ var Contracts = class _Contracts {
    * - Check internal assumptions while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -173,7 +205,7 @@ var Contracts = class _Contracts {
    * - Check required external conditions.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -237,7 +269,7 @@ var Contracts = class _Contracts {
    * - Perform additional argument checks while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -293,7 +325,7 @@ var Contracts = class _Contracts {
    * - Verify that processing completed correctly.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -359,7 +391,7 @@ var Contracts = class _Contracts {
    * - Confirm internal behavior while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -415,7 +447,7 @@ var Contracts = class _Contracts {
    * INVARIANT represents conditions that must always remain true.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -478,7 +510,7 @@ var Contracts = class _Contracts {
    * - Detect unexpected state changes while debugging.
    *
    * @param isOk
-   * Condition result to verify.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param [ngMsg]
    * Failure message.
@@ -536,7 +568,7 @@ var Contracts = class _Contracts {
    * @internal
    * 
    * @param isOk
-   * Condition result.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param prefix
    * Contract type prefix used in the error message.
@@ -600,7 +632,7 @@ var Contracts = class _Contracts {
    * @internal
    * 
    * @param isOk
-   * Condition result.
+   * Condition result(`boolean`)  to be verified.
    *
    * @param prefix
    * Contract type prefix used in the error message.
@@ -645,7 +677,7 @@ var Contracts = class _Contracts {
    * @internal
    */
   static getLogger() {
-    return _Contracts.logger ?? console;
+    return _Contracts.#config.logger;
   }
 };
 
