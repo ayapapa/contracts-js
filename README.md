@@ -133,7 +133,7 @@ Contracts.INVARIANT(
 ```
 
 ## API Reference
-[API document](https://raw.githubusercontent.com/ayapapa/contracts-js/main/docs/api.md)
+[API document](https://github.com/ayapapa/contracts-js/blob/main/docs/api.md)
 
 ## Usage
 

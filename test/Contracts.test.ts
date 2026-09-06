@@ -127,6 +127,11 @@ describe('Contracts', () => {
     expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
+
+    Contracts.setConfig({ debug: null, logger: null } as any); // Forced type cast due to null specification.
+    expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
+    expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
+    expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
   });
 
 

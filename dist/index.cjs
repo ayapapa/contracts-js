@@ -43,8 +43,6 @@ var Contracts = class _Contracts {
   };
   /** Current config. */
   static #config = { ..._Contracts.#defaultConf };
-  /** logger */
-  //private static logger: LogProvider = console;
   /**
    * Configures contract checking behavior.
    *
@@ -65,7 +63,7 @@ var Contracts = class _Contracts {
    * it is used instead of the standard logger, `console`.
    * This module uses only the `error` method of the `logger`. <br>
    * <br>
-   * Note: If the value of a property is `undefined`, it is treated as unspecified.
+   * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
    * 
    * @param reset
    * If `true`, unspecified values ​​are saved to the settings as default values. <br>
@@ -647,7 +645,7 @@ var Contracts = class _Contracts {
         throw err;
       }
       if (ngMsg) {
-        _Contracts.getLogger().error(msg, eProps);
+        _Contracts.#getLogger().error(msg, eProps);
       }
     }
     return isOk;
@@ -705,11 +703,10 @@ var Contracts = class _Contracts {
     ) : isOk;
   }
   /** 
-   * Get logger 
-   *
    * @internal
+   * Get logger 
    */
-  static getLogger() {
+  static #getLogger() {
     return _Contracts.#config.logger;
   }
 };

@@ -6,7 +6,7 @@
 
 # Class: Contracts
 
-Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L65)
+Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L65)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/0
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:76](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L76)
+Defined in: [lib/Contracts.ts:76](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L76)
 
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
@@ -36,7 +36,7 @@ Please use `setConfig()` to change the debug mode.**
 
 > `static` **ENSURE**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:483](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L483)
+Defined in: [lib/Contracts.ts:477](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L477)
 
 Checks a postcondition after execution.
 
@@ -81,13 +81,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -123,7 +123,7 @@ function double(value) {
 
 > `static` **ENSURE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:546](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L546)
+Defined in: [lib/Contracts.ts:539](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L539)
 
 Checks a postcondition in debug mode only.
 
@@ -167,13 +167,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -198,7 +198,7 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:147](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L147)
+Defined in: [lib/Contracts.ts:144](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L144)
 
 Get the current configurations.
 
@@ -214,7 +214,7 @@ Default configurations.
 
 > `static` **getDefaultConfig**(): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:139](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L139)
+Defined in: [lib/Contracts.ts:136](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L136)
 
 Get the default configurations.
 
@@ -230,7 +230,7 @@ Default configurations.
 
 > `static` **INVARIANT**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:617](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L617)
+Defined in: [lib/Contracts.ts:610](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L610)
 
 Checks an invariant condition.
 
@@ -275,13 +275,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -314,7 +314,7 @@ class BankAccount {
 
 > `static` **INVARIANT\_DEBUG**(`isOk`, `ngMsg?`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:680](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L680)
+Defined in: [lib/Contracts.ts:672](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L672)
 
 Checks an invariant condition in debug mode only.
 
@@ -358,13 +358,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -389,7 +389,7 @@ Contracts.INVARIANT_DEBUG(
 
 > `static` **REQUIRE**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:345](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L345)
+Defined in: [lib/Contracts.ts:341](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L341)
 
 Checks a precondition before execution.
 
@@ -433,13 +433,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -473,7 +473,7 @@ function divide(a, b) {
 
 > `static` **REQUIRE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:408](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L408)
+Defined in: [lib/Contracts.ts:403](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L403)
 
 Checks a precondition in debug mode only.
 
@@ -517,13 +517,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -548,7 +548,7 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(): `void`
 
-Defined in: [lib/Contracts.ts:156](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L156)
+Defined in: [lib/Contracts.ts:153](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L153)
 
 Reset the current configurations to the default configurations.
 
@@ -564,7 +564,7 @@ Default configurations.
 
 > `static` **setConfig**(`config`, `reset?`): `void`
 
-Defined in: [lib/Contracts.ts:124](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L124)
+Defined in: [lib/Contracts.ts:121](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L121)
 
 Configures contract checking behavior.
 
@@ -590,7 +590,7 @@ Is the `logger` property is specified,
 it is used instead of the standard logger, `console`.
 This module uses only the `error` method of the `logger`. <br>
 <br>
-Note: If the value of a property is `undefined`, it is treated as unspecified.
+Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
 
 ##### reset?
 
@@ -620,7 +620,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 > `static` **VERIFY**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:211](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L211)
+Defined in: [lib/Contracts.ts:208](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L208)
 
 Verifies an intermediate condition during execution.
 
@@ -668,13 +668,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 
@@ -701,7 +701,7 @@ Contracts.VERIFY(
 
 > `static` **VERIFY\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:274](https://github.com/ayapapa/contracts-js/blob/091ca77b47b9693db9426bfc5495f3c65ad3341a/src/lib/Contracts.ts#L274)
+Defined in: [lib/Contracts.ts:270](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L270)
 
 Verifies an intermediate condition in debug mode only.
 
@@ -745,13 +745,13 @@ Supported values:
 
 ##### eParams?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Parameter options following the message passed to the Error constructor.
 
 ##### eProps?
 
-\{\[`key`: `string`\]: `any`; \} \| `null`
+`Record`\<`string`, `unknown`\> \| `null`
 
 Additional properties assigned to the error object.
 

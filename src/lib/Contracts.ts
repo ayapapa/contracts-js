@@ -84,9 +84,6 @@ export class Contracts {
   /** Current config. */
   static #config: Required<Config> = { ...Contracts.#defaultConf };
 
-  /** logger */
-  //private static logger: LogProvider = console;
-
   /**
    * Configures contract checking behavior.
    *
@@ -107,7 +104,7 @@ export class Contracts {
    * it is used instead of the standard logger, `console`.
    * This module uses only the `error` method of the `logger`. <br>
    * <br>
-   * Note: If the value of a property is `undefined`, it is treated as unspecified.
+   * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
    * 
    * @param reset
    * If `true`, unspecified values ​​are saved to the settings as default values. <br>
@@ -211,9 +208,9 @@ export class Contracts {
   public static VERIFY(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ): boolean {
     return Contracts.check(
       isOk,
@@ -224,7 +221,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Verifies an intermediate condition in debug mode only.
@@ -274,9 +270,9 @@ export class Contracts {
   public static VERIFY_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.checkDebug(
       isOk,
@@ -345,9 +341,9 @@ export class Contracts {
   public static REQUIRE(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.check(
       isOk,
@@ -358,7 +354,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Checks a precondition in debug mode only.
@@ -408,9 +403,9 @@ export class Contracts {
   public static REQUIRE_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.checkDebug(
       isOk,
@@ -421,7 +416,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Checks a postcondition after execution.
@@ -483,9 +477,9 @@ export class Contracts {
   public static ENSURE(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.check(
       isOk,
@@ -496,7 +490,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Checks a postcondition in debug mode only.
@@ -546,9 +539,9 @@ export class Contracts {
   public static ENSURE_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.checkDebug(
       isOk,
@@ -617,9 +610,9 @@ export class Contracts {
   public static INVARIANT(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.check(
       isOk,
@@ -630,7 +623,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Checks an invariant condition in debug mode only.
@@ -680,9 +672,9 @@ export class Contracts {
   public static INVARIANT_DEBUG(
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.checkDebug(
       isOk,
@@ -693,7 +685,6 @@ export class Contracts {
       eProps
     );
   }
-
 
   /**
    * Core contract evaluation logic.
@@ -745,9 +736,9 @@ export class Contracts {
     isOk: boolean,
     prefix: string = 'CHECK',
     ngMsg: string | null = '',
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     // Compatibility with versions prior to 0.2.x
     if (eProps === undefined) {
@@ -768,7 +759,7 @@ export class Contracts {
       }
 
       if (ngMsg) {
-        Contracts.getLogger().error(msg, eProps);
+        Contracts.#getLogger().error(msg, eProps);
       }
     }
 
@@ -821,9 +812,9 @@ export class Contracts {
     isOk: boolean,
     prefix: string = 'CHECK',
     ngMsg: string | null = '',
-    ErrorClass: (new (...args:any[])=>Error) | null = Error,
-    eParams?: {[key: string]: any} | null,
-    eProps?: {[key: string]: any} | null
+    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    eParams?: Record<string, unknown> | null,
+    eProps?: Record<string, unknown> | null
   ) {
     return Contracts.DEBUG_MODE
       ? Contracts.check(
@@ -838,11 +829,10 @@ export class Contracts {
   }
 
   /** 
-   * Get logger 
-   *
    * @internal
+   * Get logger 
    */
-  private static getLogger(): LogProvider {
+  static #getLogger(): LogProvider {
     return Contracts.#config.logger;
   }
 
