@@ -5,11 +5,18 @@
 ![Lines](https://raw.githubusercontent.com/ayapapa/contracts-js/main/badges/coverage-lines.svg)
 ![Statements](https://raw.githubusercontent.com/ayapapa/contracts-js/main/badges/coverage-statements.svg)
 
+## Table of contents
+[Overview](#overview) | [API Reference](#api-reference) | [Installation](#installation) | [Contract Types](#contract-types) | [Usage](#usage)
+
 # contracts-js
+## Overview
 A lightweight Design by Contract library for JavaScript.</br>
 Provides runtime contract checks based on Design by Contract principles.</br>
 All check functions return the evaluated condition itself, so they can be used directly in control flow when exception throwing is suppressed.
 
+## API Reference
+[API document](https://github.com/ayapapa/contracts-js/blob/main/docs/api.md)<br>
+Implementation examples are also included.
 
 ## Installation
 
@@ -131,9 +138,6 @@ Contracts.INVARIANT(
   'Balance cannot be negative'
 );
 ```
-
-## API Reference
-[API document](https://github.com/ayapapa/contracts-js/blob/main/docs/api.md)
 
 ## Usage
 
