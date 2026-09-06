@@ -6,7 +6,7 @@
 
 # Class: Contracts
 
-Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L65)
+Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L65)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/c
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:76](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L76)
+Defined in: [lib/Contracts.ts:76](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L76)
 
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
@@ -36,7 +36,7 @@ Please use `setConfig()` to change the debug mode.**
 
 > `static` **ENSURE**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:477](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L477)
+Defined in: [lib/Contracts.ts:477](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L477)
 
 Checks a postcondition after execution.
 
@@ -123,14 +123,14 @@ function double(value) {
 
 > `static` **ENSURE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:539](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L539)
+Defined in: [lib/Contracts.ts:539](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L539)
 
 Checks a postcondition in debug mode only.
 
 Performs the same validation as ENSURE only when
-DEBUG_MODE is enabled.
+`debug_mode`(internal state) is enabled.
 
-When DEBUG_MODE is disabled,
+When `debug_mode`(internal state) is disabled,
 no validation is performed.
 
 Typical usage:
@@ -198,7 +198,7 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:144](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L144)
+Defined in: [lib/Contracts.ts:144](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L144)
 
 Get the current configurations.
 
@@ -214,7 +214,7 @@ Default configurations.
 
 > `static` **getDefaultConfig**(): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:136](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L136)
+Defined in: [lib/Contracts.ts:136](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L136)
 
 Get the default configurations.
 
@@ -230,7 +230,7 @@ Default configurations.
 
 > `static` **INVARIANT**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:610](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L610)
+Defined in: [lib/Contracts.ts:610](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L610)
 
 Checks an invariant condition.
 
@@ -314,14 +314,14 @@ class BankAccount {
 
 > `static` **INVARIANT\_DEBUG**(`isOk`, `ngMsg?`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:672](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L672)
+Defined in: [lib/Contracts.ts:672](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L672)
 
 Checks an invariant condition in debug mode only.
 
 Performs the same validation as INVARIANT only when
-DEBUG_MODE is enabled.
+`debug_mode`(internal state) is enabled.
 
-When DEBUG_MODE is disabled,
+When `debug_mode`(internal state) is disabled,
 no validation is performed.
 
 Typical usage:
@@ -389,7 +389,7 @@ Contracts.INVARIANT_DEBUG(
 
 > `static` **REQUIRE**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:341](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L341)
+Defined in: [lib/Contracts.ts:341](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L341)
 
 Checks a precondition before execution.
 
@@ -473,14 +473,14 @@ function divide(a, b) {
 
 > `static` **REQUIRE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:403](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L403)
+Defined in: [lib/Contracts.ts:403](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L403)
 
 Checks a precondition in debug mode only.
 
 Performs the same validation as REQUIRE only when
-DEBUG_MODE is enabled.
+`debug_mode`(internal state) is enabled.
 
-When DEBUG_MODE is disabled,
+When `debug_mode`(internal state) is disabled,
 no validation is performed.
 
 Typical usage:
@@ -548,7 +548,7 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(): `void`
 
-Defined in: [lib/Contracts.ts:153](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L153)
+Defined in: [lib/Contracts.ts:153](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L153)
 
 Reset the current configurations to the default configurations.
 
@@ -564,7 +564,7 @@ Default configurations.
 
 > `static` **setConfig**(`config`, `reset?`): `void`
 
-Defined in: [lib/Contracts.ts:121](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L121)
+Defined in: [lib/Contracts.ts:121](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L121)
 
 Configures contract checking behavior.
 
@@ -620,7 +620,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 > `static` **VERIFY**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:208](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L208)
+Defined in: [lib/Contracts.ts:208](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L208)
 
 Verifies an intermediate condition during execution.
 
@@ -701,14 +701,14 @@ Contracts.VERIFY(
 
 > `static` **VERIFY\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:270](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L270)
+Defined in: [lib/Contracts.ts:270](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L270)
 
 Verifies an intermediate condition in debug mode only.
 
 Performs the same validation as VERIFY only when
-DEBUG_MODE is enabled.
+`debug_mode`(internal state) is enabled.
 
-When DEBUG_MODE is disabled,
+When `debug_mode`(internal state) is disabled,
 no validation is performed.
 
 Typical usage:

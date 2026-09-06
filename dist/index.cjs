@@ -173,9 +173,9 @@ var Contracts = class _Contracts {
    * Verifies an intermediate condition in debug mode only.
    *
    * Performs the same validation as VERIFY only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -292,9 +292,9 @@ var Contracts = class _Contracts {
    * Checks a precondition in debug mode only.
    *
    * Performs the same validation as REQUIRE only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -414,9 +414,9 @@ var Contracts = class _Contracts {
    * Checks a postcondition in debug mode only.
    *
    * Performs the same validation as ENSURE only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -533,9 +533,9 @@ var Contracts = class _Contracts {
    * Checks an invariant condition in debug mode only.
    *
    * Performs the same validation as INVARIANT only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -633,9 +633,6 @@ var Contracts = class _Contracts {
   static check(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eParams, eProps) {
     if (eProps === void 0) {
       eProps = eParams ?? {};
-      eParams = null;
-    } else {
-      eProps ??= {};
     }
     if (!isOk) {
       const msg = `[${prefix}] ${ngMsg ?? ""}`;
@@ -653,10 +650,9 @@ var Contracts = class _Contracts {
   /**
    * Debug-only contract evaluation logic.
    *
-   * Executes contract validation only when DEBUG_MODE
-   * is enabled.
+   * Executes contract validation only when `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * this method returns the original condition value
    * without performing any validation.
    *

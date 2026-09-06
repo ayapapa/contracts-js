@@ -10,7 +10,7 @@ export type LogProvider = Pick<Console,  'error'>;
 export interface Config {
   /**
    * Debug mode state.
-   * If `true`, `DEBUG_MODE` is enabled; otherwise, it is disabled.
+   * If `true`, `debug_mode`(internal state) is enabled; otherwise, it is disabled.
    * The default is `false`.
    */
   debug?: boolean;
@@ -54,9 +54,9 @@ export type ConfigKey = keyof Config;
  * ## Debug Mode
  *
  * Methods ending with `_DEBUG` execute contract checks only
- * when `DEBUG_MODE` is enabled.
+ * when `debug_mode`(internal state) is enabled.
  *
- * When `DEBUG_MODE` is disabled,
+ * When `debug_mode`(internal state) is disabled,
  * these methods return the original condition value
  * without performing validation.
  *
@@ -226,9 +226,9 @@ export class Contracts {
    * Verifies an intermediate condition in debug mode only.
    *
    * Performs the same validation as VERIFY only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -359,9 +359,9 @@ export class Contracts {
    * Checks a precondition in debug mode only.
    *
    * Performs the same validation as REQUIRE only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -495,9 +495,9 @@ export class Contracts {
    * Checks a postcondition in debug mode only.
    *
    * Performs the same validation as ENSURE only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -628,9 +628,9 @@ export class Contracts {
    * Checks an invariant condition in debug mode only.
    *
    * Performs the same validation as INVARIANT only when
-   * DEBUG_MODE is enabled.
+   * `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * no validation is performed.
    *
    * Typical usage:
@@ -767,10 +767,9 @@ export class Contracts {
   /**
    * Debug-only contract evaluation logic.
    *
-   * Executes contract validation only when DEBUG_MODE
-   * is enabled.
+   * Executes contract validation only when `debug_mode`(internal state) is enabled.
    *
-   * When DEBUG_MODE is disabled,
+   * When `debug_mode`(internal state) is disabled,
    * this method returns the original condition value
    * without performing any validation.
    *

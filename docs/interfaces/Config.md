@@ -6,7 +6,7 @@
 
 # Interface: Config
 
-Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L10)
+Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L10)
 
 Configuration
 
@@ -16,10 +16,10 @@ Configuration
 
 > `optional` **debug?**: `boolean`
 
-Defined in: [lib/Contracts.ts:16](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L16)
+Defined in: [lib/Contracts.ts:16](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L16)
 
 Debug mode state.
-If `true`, `DEBUG_MODE` is enabled; otherwise, it is disabled.
+If `true`, `debug_mode`(internal state) is enabled; otherwise, it is disabled.
 The default is `false`.
 
 ***
@@ -28,7 +28,7 @@ The default is `false`.
 
 > `optional` **logger?**: [`LogProvider`](../type-aliases/LogProvider.md)
 
-Defined in: [lib/Contracts.ts:23](https://github.com/ayapapa/contracts-js/blob/c7516c084bdd0462ec73dc6277972ca372e8786b/src/lib/Contracts.ts#L23)
+Defined in: [lib/Contracts.ts:23](https://github.com/ayapapa/contracts-js/blob/69a23a361c943788a2b2627905b5b85bd0d3cf38/src/lib/Contracts.ts#L23)
 
 External logger.
 If specified, it is used instead of the standard logger, `console`.
