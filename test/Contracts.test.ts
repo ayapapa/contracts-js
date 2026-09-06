@@ -81,7 +81,9 @@ describe('Contracts', () => {
         message: '[REQUIRE] failed',
         code: 'E_REQUIRE',
       });
-      expect((error as ErrorWithOptions).options).toBeUndefined();
+      expect((error as ErrorWithOptions).options).toMatchObject({
+        code: 'E_REQUIRE',
+      });
     }
   });
 

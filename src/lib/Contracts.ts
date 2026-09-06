@@ -743,10 +743,8 @@ export class Contracts {
     // Compatibility with versions prior to 0.2.x
     if (eProps === undefined) {
       eProps = eParams ?? {};
-      eParams = null;
-    } else {
-      eProps ??= {};
     }
+
     if (!isOk) {
       const msg = `[${prefix}] ${ngMsg ?? ''}`;
 
