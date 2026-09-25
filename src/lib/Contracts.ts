@@ -740,11 +740,6 @@ export class Contracts {
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
-    // Compatibility with versions prior to 0.2.x
-    if (eProps === undefined) {
-      eProps = eParams ?? {};
-    }
-
     if (!isOk) {
       const msg = `[${prefix}] ${ngMsg ?? ''}`;
 
@@ -757,7 +752,10 @@ export class Contracts {
       }
 
       if (ngMsg) {
-        Contracts.#getLogger().error(msg, eProps);
+        const args = [msg] as unknown[];
+        eParams && args.push(eParams);
+        eProps && args.push(eProps);
+        Contracts.#getLogger().error(...args);
       }
     }
 

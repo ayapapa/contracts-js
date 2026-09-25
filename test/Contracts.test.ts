@@ -1,7 +1,12 @@
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index';
 
-class ContractError extends Error {}
+class ContractError extends Error {
+  constructor(msg: string, param?: unknown, props?: unknown) {
+    super(msg);
+    Object.assign(this, param, props);
+  }
+}
 
 class ErrorWithOptions extends Error {
   options: unknown;
@@ -79,7 +84,7 @@ describe('Contracts', () => {
       expect(error).toBeInstanceOf(ErrorWithOptions);
       expect(error).toMatchObject({
         message: '[REQUIRE] failed',
-        code: 'E_REQUIRE',
+        //code: 'E_REQUIRE',
       });
       expect((error as ErrorWithOptions).options).toMatchObject({
         code: 'E_REQUIRE',
@@ -159,8 +164,11 @@ describe('Contracts', () => {
 
     Contracts.setConfig({ logger });
 
-    expect(Contracts.REQUIRE(false, 'failed', null, { code: 'E_REQUIRE' })).toBeFalsy();
-    expect(logger.error).toHaveBeenCalledWith('[REQUIRE] failed', { code: 'E_REQUIRE' });
+    const param = { code: 'E_REQUIRE' };
+    const props = { code: 'HOGEHOGE' };
+    
+    expect(Contracts.REQUIRE(false, 'failed', null, param, props)).toBeFalsy();
+    expect(logger.error).toHaveBeenCalledWith('[REQUIRE] failed', param, props);
   });
 
   it('get default config', () => {
@@ -186,7 +194,7 @@ describe('Contracts', () => {
     const logger: LogProvider = {
       error: vi.fn(),
     };
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {
       const i = 0;
     });
 
@@ -195,8 +203,7 @@ describe('Contracts', () => {
 
     expect(Contracts.ENSURE(false, 'failed', null)).toBe(false);
     expect(logger.error).not.toHaveBeenCalled();
-    expect(consoleError).toHaveBeenCalledWith('[ENSURE] failed', {});
-    expect(consoleError).toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalledWith('[ENSURE] failed');
   });
 
   it('does not log empty failure messages when throwing is suppressed', () => {

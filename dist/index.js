@@ -604,9 +604,6 @@ var Contracts = class _Contracts {
    *
    */
   static check(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eParams, eProps) {
-    if (eProps === void 0) {
-      eProps = eParams ?? {};
-    }
     if (!isOk) {
       const msg = `[${prefix}] ${ngMsg ?? ""}`;
       if (ErrorClass) {
@@ -615,7 +612,10 @@ var Contracts = class _Contracts {
         throw err;
       }
       if (ngMsg) {
-        _Contracts.#getLogger().error(msg, eProps);
+        const args = [msg];
+        eParams && args.push(eParams);
+        eProps && args.push(eProps);
+        _Contracts.#getLogger().error(...args);
       }
     }
     return isOk;
