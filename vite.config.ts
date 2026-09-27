@@ -8,7 +8,7 @@ export default defineConfig({
       formats: ['es', 'cjs'], // Match --format esm,cjs
       fileName: (format) => format === 'cjs' ? 'index.cjs' : 'index.js',
     },
-    outDir: 'dist', // Match　--out-dir dist 
+    outDir: 'dist', // Match --out-dir dist 
     // For type definitions (--dts), `vite-plugin-dts` is required,
     // so you need to add the plugin configuration.
   },

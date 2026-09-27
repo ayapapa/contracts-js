@@ -1,5 +1,8 @@
+import console from 'node:console';
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index';
+
+const { REQUIRE, VERIFY, ENSURE, INVARIANT } = Contracts;
 
 class ContractError extends Error {
   constructor(msg: string, param?: unknown, props?: unknown) {
@@ -26,26 +29,26 @@ beforeEach(() => {
 describe('Contracts', () => {
 
   it('returns true when the condition passes', () => {
-    expect(Contracts.VERIFY(true, 'ok')).toBe(true);
-    expect(Contracts.REQUIRE(true, 'ok')).toBe(true);
-    expect(Contracts.ENSURE(true, 'ok')).toBe(true);
-    expect(Contracts.INVARIANT(true, 'ok')).toBe(true);
+    expect(VERIFY(true, 'ok')).toBe(true);
+    expect(REQUIRE(true, 'ok')).toBe(true);
+    expect(ENSURE(true, 'ok')).toBe(true);
+    expect(INVARIANT(true, 'ok')).toBe(true);
   });
 
   it('throws an error with the contract prefix when the condition fails', () => {
-    expect(() => Contracts.VERIFY(false, 'failed')).toThrow('[VERIFY] failed');
-    expect(() => Contracts.REQUIRE(false, 'failed')).toThrow('[REQUIRE] failed');
-    expect(() => Contracts.ENSURE(false, 'failed')).toThrow('[ENSURE] failed');
-    expect(() => Contracts.INVARIANT(false, 'failed')).toThrow('[INVARIANT] failed');
+    expect(() => VERIFY(false, 'failed')).toThrow('[VERIFY] failed');
+    expect(() => REQUIRE(false, 'failed')).toThrow('[REQUIRE] failed');
+    expect(() => ENSURE(false, 'failed')).toThrow('[ENSURE] failed');
+    expect(() => INVARIANT(false, 'failed')).toThrow('[INVARIANT] failed');
   });
 
   it('uses the supplied error class and custom properties', () => {
     expect(() =>
-      Contracts.VERIFY(false, 'failed', ContractError, { code: 'E_CONTRACT' }),
+      VERIFY(false, 'failed', ContractError, { code: 'E_CONTRACT' }),
     ).toThrow(ContractError);
 
     try {
-      Contracts.VERIFY(false, 'failed', ContractError, { code: 'E_CONTRACT' });
+      VERIFY(false, 'failed', ContractError, { code: 'E_CONTRACT' });
     } catch (error) {
       expect(error).toMatchObject({
         message: '[VERIFY] failed',
@@ -58,7 +61,7 @@ describe('Contracts', () => {
     expect.assertions(2);
 
     try {
-      Contracts.VERIFY(
+      VERIFY(
         false,
         'failed',
         ErrorWithOptions,
@@ -79,7 +82,7 @@ describe('Contracts', () => {
     expect.assertions(3);
 
     try {
-      Contracts.REQUIRE(false, 'failed', ErrorWithOptions, { code: 'E_REQUIRE' });
+      REQUIRE(false, 'failed', ErrorWithOptions, { code: 'E_REQUIRE' });
     } catch (error) {
       expect(error).toBeInstanceOf(ErrorWithOptions);
       expect(error).toMatchObject({
@@ -95,7 +98,7 @@ describe('Contracts', () => {
   it('logs instead of throwing when no error class is supplied', () => {
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(Contracts.VERIFY(false, 'failed', null, { code: 'E_CONTRACT' })).toBe(false);
+    expect(VERIFY(false, 'failed', null, { code: 'E_CONTRACT' })).toBe(false);
     expect(error).toHaveBeenCalledWith('[VERIFY] failed', { code: 'E_CONTRACT' });
   });
 
@@ -129,13 +132,13 @@ describe('Contracts', () => {
   });
 
   it('sets config null values', () => {
-    const logger: LogProvider = { error: vi.fn() };
+    //const logger: LogProvider = { error: vi.fn() };
     Contracts.setConfig({ debug: undefined, logger: undefined });
     expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
 
-    Contracts.setConfig({ debug: null, logger: null } as any); // Forced type cast due to null specification.
+    Contracts.setConfig({ debug: null, logger: null } as unknown as Config); // Forced type cast due to null specification.
     expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
     expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
@@ -167,7 +170,7 @@ describe('Contracts', () => {
     const param = { code: 'E_REQUIRE' };
     const props = { code: 'HOGEHOGE' };
     
-    expect(Contracts.REQUIRE(false, 'failed', null, param, props)).toBeFalsy();
+    expect(REQUIRE(false, 'failed', null, param, props)).toBeFalsy();
     expect(logger.error).toHaveBeenCalledWith('[REQUIRE] failed', param, props);
   });
 
@@ -194,14 +197,14 @@ describe('Contracts', () => {
     const logger: LogProvider = {
       error: vi.fn(),
     };
-    const consoleError = vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {
-      const i = 0;
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {
+      //const i = 0;
     });
 
     Contracts.setConfig({ logger });
     Contracts.resetConfig();
 
-    expect(Contracts.ENSURE(false, 'failed', null)).toBe(false);
+    expect(ENSURE(false, 'failed', null)).toBe(false);
     expect(logger.error).not.toHaveBeenCalled();
     expect(consoleError).toHaveBeenCalledWith('[ENSURE] failed');
   });
@@ -209,7 +212,7 @@ describe('Contracts', () => {
   it('does not log empty failure messages when throwing is suppressed', () => {
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    expect(Contracts.INVARIANT(false, null, null)).toBe(false);
+    expect(INVARIANT(false, null, null)).toBe(false);
     expect(error).not.toHaveBeenCalled();
   });
 

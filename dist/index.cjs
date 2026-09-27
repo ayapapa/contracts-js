@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
@@ -26,6 +36,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // src/lib/Contracts.ts
+var import_node_console = __toESM(require("console"), 1);
 var Contracts = class _Contracts {
   /** 
    * Static fields
@@ -39,7 +50,7 @@ var Contracts = class _Contracts {
   /** default configuration */
   static #defaultConf = {
     debug: false,
-    logger: console
+    logger: import_node_console.default
   };
   /** Current config. */
   static #config = { ..._Contracts.#defaultConf };
@@ -66,8 +77,8 @@ var Contracts = class _Contracts {
    * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
    * 
    * @param reset
-   * If `true`, unspecified values ​​are saved to the settings as default values. <br>
-   * If `false`, unspecified values ​​remain at their current settings.
+   * If `true`, unspecified values are saved to the settings as default values. <br>
+   * If `false`, unspecified values remain at their current settings.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -79,7 +90,7 @@ var Contracts = class _Contracts {
    */
   static setConfig(config, reset = true) {
     const rConf = { ...config };
-    for (let key of Object.keys(rConf)) {
+    for (const key of Object.keys(rConf)) {
       if (rConf[key] == null) delete rConf[key];
     }
     if (reset) _Contracts.#config = { ..._Contracts.getDefaultConfig() };

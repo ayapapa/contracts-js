@@ -1,6 +1,6 @@
 {
   "name": "@ayapapa-npm/contracts-js",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A lightweight Design by Contract library for JavaScript.",
   "license": "MIT",
   "author": "ayapapa",
@@ -26,19 +26,23 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "coverage:ui": "vitest run --coverage && start coverage/index.html",
-    "check": "npm run typecheck && npm run build && npm run build:doc && npm run coverage",
-    "check:ui": "npm run typecheck && npm run build && npm run build:doc && npm run coverage:ui",
+    "check": "npm run typecheck && npm run lint && npm run build && npm run build:doc && npm run coverage",
+    "check:ui": "npm run typecheck && npm run lint && npm run build && npm run build:doc && npm run coverage:ui",
     "release:check": "npm run check",
-    "prepublishOnly": "npm run release:check"
+    "prepublishOnly": "npm run release:check",
+    "lint": "eslint ."
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^26.2.0",
     "@vitest/coverage-v8": "^5.0.2",
     "@vitest/ui": "^5.0.2",
+    "eslint": "^10.11.0",
     "tsup": "^8.5.1",
     "typedoc": "^0.28.20",
     "typedoc-plugin-markdown": "^4.13.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.1",
     "vite": "^8.2.2",
     "vitest": "^5.0.2"
   }

@@ -1,4 +1,5 @@
 // src/lib/Contracts.ts
+import console from "console";
 var Contracts = class _Contracts {
   /** 
    * Static fields
@@ -39,8 +40,8 @@ var Contracts = class _Contracts {
    * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
    * 
    * @param reset
-   * If `true`, unspecified values ​​are saved to the settings as default values. <br>
-   * If `false`, unspecified values ​​remain at their current settings.
+   * If `true`, unspecified values are saved to the settings as default values. <br>
+   * If `false`, unspecified values remain at their current settings.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -52,7 +53,7 @@ var Contracts = class _Contracts {
    */
   static setConfig(config, reset = true) {
     const rConf = { ...config };
-    for (let key of Object.keys(rConf)) {
+    for (const key of Object.keys(rConf)) {
       if (rConf[key] == null) delete rConf[key];
     }
     if (reset) _Contracts.#config = { ..._Contracts.getDefaultConfig() };

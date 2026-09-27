@@ -3,6 +3,10 @@
  */
 type LogProvider = Pick<Console, 'error'>;
 /**
+ * Type of the custom error class type.
+ */
+type ErrorClassType = new (msg: string, eParams?: Record<string, unknown> | null) => Error;
+/**
  * Configuration
  */
 interface Config {
@@ -91,8 +95,8 @@ declare class Contracts {
      * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
      *
      * @param reset
-     * If `true`, unspecified values ​​are saved to the settings as default values. <br>
-     * If `false`, unspecified values ​​remain at their current settings.
+     * If `true`, unspecified values are saved to the settings as default values. <br>
+     * If `false`, unspecified values remain at their current settings.
      *
      * @example
      * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -169,7 +173,7 @@ declare class Contracts {
      *   'Calculation result must not be negative'
      * );
      */
-    static VERIFY(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static VERIFY(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Verifies an intermediate condition in debug mode only.
      *
@@ -215,7 +219,7 @@ declare class Contracts {
      *   'Intermediate value must not be null'
      * );
      */
-    static VERIFY_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static VERIFY_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks a precondition before execution.
      *
@@ -270,7 +274,7 @@ declare class Contracts {
      *   return a / b;
      * }
      */
-    static REQUIRE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static REQUIRE(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks a precondition in debug mode only.
      *
@@ -316,7 +320,7 @@ declare class Contracts {
      *   'User must exist during debugging'
      * );
      */
-    static REQUIRE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static REQUIRE_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks a postcondition after execution.
      *
@@ -374,7 +378,7 @@ declare class Contracts {
      *   return result;
      * }
      */
-    static ENSURE(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static ENSURE(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks a postcondition in debug mode only.
      *
@@ -420,7 +424,7 @@ declare class Contracts {
      *   'Result should exist during debugging'
      * );
      */
-    static ENSURE_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static ENSURE_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks an invariant condition.
      *
@@ -475,7 +479,7 @@ declare class Contracts {
      *
      * }
      */
-    static INVARIANT(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static INVARIANT(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Checks an invariant condition in debug mode only.
      *
@@ -521,7 +525,7 @@ declare class Contracts {
      *   'Cache size exceeded expected limit'
      * );
      */
-    static INVARIANT_DEBUG(isOk: boolean, ngMsg: string | null, ErrorClass?: (new (...args: any[]) => Error) | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static INVARIANT_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
     /**
      * Core contract evaluation logic.
      *
@@ -613,4 +617,4 @@ declare class Contracts {
     private static checkDebug;
 }
 
-export { type Config, type ConfigKey, Contracts, type LogProvider, Contracts as default };
+export { type Config, type ConfigKey, Contracts, type ErrorClassType, type LogProvider, Contracts as default };

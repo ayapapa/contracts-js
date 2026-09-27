@@ -1,12 +1,17 @@
+import console from 'node:console'
 /** 
  * Type of the console replacement object
  */
 export type LogProvider = Pick<Console,  'error'>;
 
 /**
+ * Type of the custom error class type.
+ */
+export type ErrorClassType = new (msg: string, eParams?: Record<string, unknown> | null) => Error;
+
+/**
  * Configuration
  */
-
 export interface Config {
   /**
    * Debug mode state.
@@ -107,8 +112,8 @@ export class Contracts {
    * Note: If the value of a property is `undefined` or `null`, it is treated as unspecified.
    * 
    * @param reset
-   * If `true`, unspecified values ​​are saved to the settings as default values. <br>
-   * If `false`, unspecified values ​​remain at their current settings.
+   * If `true`, unspecified values are saved to the settings as default values. <br>
+   * If `false`, unspecified values remain at their current settings.
    *
    * @example
    * // Use a logger that is slightly more advanced than the standard logger—namely, `console`.
@@ -121,7 +126,7 @@ export class Contracts {
   public static setConfig(config: Config, reset:boolean = true): void {
     const rConf = { ...config };
     // Remove properties specified as undefined or null.
-    for (let key of Object.keys(rConf) as Array<ConfigKey>) {
+    for (const key of Object.keys(rConf) as Array<ConfigKey>) {
       if (rConf[key] == null) delete rConf[key];
     }
     if (reset) Contracts.#config = { ...Contracts.getDefaultConfig() };
@@ -206,9 +211,10 @@ export class Contracts {
    * );
    */
   public static VERIFY(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ): boolean {
@@ -268,9 +274,10 @@ export class Contracts {
    * );
    */
   public static VERIFY_DEBUG(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -339,9 +346,10 @@ export class Contracts {
    * }
    */
   public static REQUIRE(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -401,9 +409,10 @@ export class Contracts {
    * );
    */
   public static REQUIRE_DEBUG(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -475,9 +484,10 @@ export class Contracts {
    * }
    */
   public static ENSURE(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -537,9 +547,10 @@ export class Contracts {
    * );
    */
   public static ENSURE_DEBUG(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -608,9 +619,10 @@ export class Contracts {
    * }
    */
   public static INVARIANT(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -670,9 +682,10 @@ export class Contracts {
    * );
    */
   public static INVARIANT_DEBUG(
+    this: void,
     isOk: boolean,
     ngMsg: string | null,
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -733,10 +746,11 @@ export class Contracts {
    *
    */
   private static check(
+    this: void,
     isOk: boolean,
     prefix: string = 'CHECK',
     ngMsg: string | null = '',
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
@@ -744,6 +758,7 @@ export class Contracts {
       const msg = `[${prefix}] ${ngMsg ?? ''}`;
 
       if (ErrorClass) {
+        //const CustomError = ErrorClass as new (...any[]) => Error;
         const err = eParams ? new ErrorClass(msg, eParams) : new ErrorClass(msg);
         // Avoid using `if` statements to circumvent issues with coverage tools.
         eProps && Object.assign(err, eProps);
@@ -804,10 +819,11 @@ export class Contracts {
    *
    */
   private static checkDebug(
+    this: void,
     isOk: boolean,
     prefix: string = 'CHECK',
     ngMsg: string | null = '',
-    ErrorClass: (new (...args: any[]) => Error) | null = Error,
+    ErrorClass: ErrorClassType | null = Error,
     eParams?: Record<string, unknown> | null,
     eProps?: Record<string, unknown> | null
   ) {
