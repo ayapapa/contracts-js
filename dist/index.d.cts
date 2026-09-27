@@ -5,7 +5,7 @@ type LogProvider = Pick<Console, 'error'>;
 /**
  * Type of the custom error class type.
  */
-type ErrorClassType = new (msg: string, eParams?: Record<string, unknown> | null) => Error;
+type ErrorClassType = new (...args: any[]) => Error;
 /**
  * Configuration
  */
@@ -106,22 +106,22 @@ declare class Contracts {
      * Contracts.setConfig({ debug: true, logger: prettyConsole });
      * // Node: ` The `logger` property is optional.
      */
-    static setConfig(config: Config, reset?: boolean): void;
+    static setConfig(this: void, config: Config, reset?: boolean): void;
     /**
      * Get the default configurations.
      * @returns Default configurations.
      */
-    static getDefaultConfig(): Required<Config>;
+    static getDefaultConfig(this: void): Required<Config>;
     /**
      * Get the current configurations.
      * @returns Default configurations.
      */
-    static getConfig(): Required<Config>;
+    static getConfig(this: void): Required<Config>;
     /**
      * Reset the current configurations to the default configurations.
      * @returns Default configurations.
      */
-    static resetConfig(): void;
+    static resetConfig(this: void): void;
     /**
      * Verifies an intermediate condition during execution.
      *

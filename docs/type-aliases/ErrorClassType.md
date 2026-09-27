@@ -6,21 +6,17 @@
 
 # Type Alias: ErrorClassType
 
-> **ErrorClassType** = (`msg`, `eParams?`) => `Error`
+> **ErrorClassType** = (...`args`) => `Error`
 
-Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/6b95939676bc0043e2a92175bdf7c290abca394f/src/lib/Contracts.ts#L10)
+Defined in: [lib/Contracts.ts:9](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L9)
 
 Type of the custom error class type.
 
 ## Parameters
 
-### msg
+### args
 
-`string`
-
-### eParams?
-
-`Record`\<`string`, `unknown`\> \| `null`
+...`any`[]
 
 ## Returns
 

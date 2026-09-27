@@ -1,5 +1,4 @@
 // src/lib/Contracts.ts
-import console from "console";
 var Contracts = class _Contracts {
   /** 
    * Static fields

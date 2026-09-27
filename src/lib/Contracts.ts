@@ -1,4 +1,3 @@
-import console from 'node:console'
 /** 
  * Type of the console replacement object
  */
@@ -7,7 +6,7 @@ export type LogProvider = Pick<Console,  'error'>;
 /**
  * Type of the custom error class type.
  */
-export type ErrorClassType = new (msg: string, eParams?: Record<string, unknown> | null) => Error;
+export type ErrorClassType = new (...args: any[]) => Error;
 
 /**
  * Configuration
@@ -123,8 +122,12 @@ export class Contracts {
    * Contracts.setConfig({ debug: true, logger: prettyConsole });
    * // Node: ` The `logger` property is optional.
    */
-  public static setConfig(config: Config, reset:boolean = true): void {
-    const rConf = { ...config };
+  public static setConfig(
+    this: void,
+    config: Config, 
+    reset:boolean = true
+  ): void {
+      const rConf = { ...config };
     // Remove properties specified as undefined or null.
     for (const key of Object.keys(rConf) as Array<ConfigKey>) {
       if (rConf[key] == null) delete rConf[key];
@@ -138,7 +141,7 @@ export class Contracts {
    * Get the default configurations.
    * @returns Default configurations.
    */
-  public static getDefaultConfig(): Required<Config> {
+  public static getDefaultConfig(this: void): Required<Config> {
     return { ...Contracts.#defaultConf };
   }
 
@@ -146,7 +149,7 @@ export class Contracts {
    * Get the current configurations.
    * @returns Default configurations.
    */
-  public static getConfig(): Required<Config> {
+  public static getConfig(this: void): Required<Config> {
     Contracts.#config.debug = Contracts.DEBUG_MODE;
     return { ...Contracts.#config };
   }
@@ -155,7 +158,7 @@ export class Contracts {
    * Reset the current configurations to the default configurations.
    * @returns Default configurations.
    */
-  public static resetConfig(): void {
+  public static resetConfig(this: void): void {
     Contracts.setConfig({}, true);
   }
 
@@ -846,5 +849,5 @@ export class Contracts {
   static #getLogger(): LogProvider {
     return Contracts.#config.logger;
   }
-
 }
+

@@ -1,8 +1,9 @@
-import console from 'node:console';
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index';
 
-const { REQUIRE, VERIFY, ENSURE, INVARIANT } = Contracts;
+const { REQUIRE, REQUIRE_DEBUG, VERIFY, VERIFY_DEBUG, ENSURE, ENSURE_DEBUG, INVARIANT, INVARIANT_DEBUG,
+  setConfig, getConfig, getDefaultConfig, resetConfig
+ } = Contracts;
 
 class ContractError extends Error {
   constructor(msg: string, param?: unknown, props?: unknown) {
@@ -22,7 +23,7 @@ class ErrorWithOptions extends Error {
 
 beforeEach(() => {
   vi.restoreAllMocks();
-  Contracts.resetConfig();
+  resetConfig();
 });
 
 
@@ -87,7 +88,6 @@ describe('Contracts', () => {
       expect(error).toBeInstanceOf(ErrorWithOptions);
       expect(error).toMatchObject({
         message: '[REQUIRE] failed',
-        //code: 'E_REQUIRE',
       });
       expect((error as ErrorWithOptions).options).toMatchObject({
         code: 'E_REQUIRE',
@@ -103,59 +103,59 @@ describe('Contracts', () => {
   });
 
   it('skips debug checks when debug mode is disabled', () => {
-    expect(Contracts.VERIFY_DEBUG(false, 'failed')).toBe(false);
-    expect(Contracts.REQUIRE_DEBUG(false, 'failed')).toBe(false);
-    expect(Contracts.ENSURE_DEBUG(false, 'failed')).toBe(false);
-    expect(Contracts.INVARIANT_DEBUG(false, 'failed')).toBe(false);
+    expect(VERIFY_DEBUG(false, 'failed')).toBe(false);
+    expect(REQUIRE_DEBUG(false, 'failed')).toBe(false);
+    expect(ENSURE_DEBUG(false, 'failed')).toBe(false);
+    expect(INVARIANT_DEBUG(false, 'failed')).toBe(false);
   });
 
   it('runs debug checks when debug mode is enabled', () => {
-    Contracts.setConfig({ debug: true });
+    setConfig({ debug: true });
 
-    expect(() => Contracts.VERIFY_DEBUG(false, 'failed')).toThrow('[VERIFY_DEBUG] failed');
-    expect(() => Contracts.REQUIRE_DEBUG(false, 'failed')).toThrow('[REQUIRE_DEBUG] failed');
-    expect(() => Contracts.ENSURE_DEBUG(false, 'failed')).toThrow('[ENSURE_DEBUG] failed');
-    expect(() => Contracts.INVARIANT_DEBUG(false, 'failed')).toThrow('[INVARIANT_DEBUG] failed');
+    expect(() => VERIFY_DEBUG(false, 'failed')).toThrow('[VERIFY_DEBUG] failed');
+    expect(() => REQUIRE_DEBUG(false, 'failed')).toThrow('[REQUIRE_DEBUG] failed');
+    expect(() => ENSURE_DEBUG(false, 'failed')).toThrow('[ENSURE_DEBUG] failed');
+    expect(() => INVARIANT_DEBUG(false, 'failed')).toThrow('[INVARIANT_DEBUG] failed');
   });
 
   it('sets config with reset=false', () => {
     const logger: LogProvider = { error: vi.fn() };
-    Contracts.setConfig({ debug: true, logger });
+    setConfig({ debug: true, logger });
     expect(Contracts.DEBUG_MODE).toBeTruthy();
-    expect(Contracts.getConfig().debug).toBeTruthy();
-    expect(Contracts.getConfig().logger).toBe(logger);
+    expect(getConfig().debug).toBeTruthy();
+    expect(getConfig().logger).toBe(logger);
 
-    Contracts.setConfig({ debug: false }, false);
+    setConfig({ debug: false }, false);
     expect(Contracts.DEBUG_MODE).toBeFalsy();
-    expect(Contracts.getConfig().debug).toBeFalsy();
-    expect(Contracts.getConfig().logger).toBe(logger);
+    expect(getConfig().debug).toBeFalsy();
+    expect(getConfig().logger).toBe(logger);
   });
 
   it('sets config null values', () => {
     //const logger: LogProvider = { error: vi.fn() };
-    Contracts.setConfig({ debug: undefined, logger: undefined });
-    expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
-    expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
-    expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
+    setConfig({ debug: undefined, logger: undefined });
+    expect(Contracts.DEBUG_MODE).toBe(getDefaultConfig().debug);
+    expect(getConfig().debug).toBe(getDefaultConfig().debug);
+    expect(getConfig().logger).toBe(getDefaultConfig().logger);
 
-    Contracts.setConfig({ debug: null, logger: null } as unknown as Config); // Forced type cast due to null specification.
-    expect(Contracts.DEBUG_MODE).toBe(Contracts.getDefaultConfig().debug);
-    expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
-    expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
+    setConfig({ debug: null, logger: null } as unknown as Config); // Forced type cast due to null specification.
+    expect(Contracts.DEBUG_MODE).toBe(getDefaultConfig().debug);
+    expect(getConfig().debug).toBe(getDefaultConfig().debug);
+    expect(getConfig().logger).toBe(getDefaultConfig().logger);
   });
 
 
   it('sets debug mode from config', () => {
-    Contracts.setConfig({ debug: true });
+    setConfig({ debug: true });
     expect(Contracts.DEBUG_MODE).toBeTruthy();
 
     Contracts.DEBUG_MODE = false;
     expect(Contracts.DEBUG_MODE).toBeFalsy();
-    expect(Contracts.getConfig().debug).toBeFalsy();
+    expect(getConfig().debug).toBeFalsy();
   });
 
   it('sets undefined config', () => {
-    Contracts.setConfig({ debug: false });
+    setConfig({ debug: false });
 
     expect(Contracts.DEBUG_MODE).toBeFalsy();
   });
@@ -165,7 +165,7 @@ describe('Contracts', () => {
       error: vi.fn(),
     };
 
-    Contracts.setConfig({ logger });
+    setConfig({ logger });
 
     const param = { code: 'E_REQUIRE' };
     const props = { code: 'HOGEHOGE' };
@@ -175,7 +175,7 @@ describe('Contracts', () => {
   });
 
   it('get default config', () => {
-    const config = Contracts.getDefaultConfig();
+    const config = getDefaultConfig();
     expect(config.debug).toBeFalsy();
     expect(config.logger).toBe(console);
   });
@@ -184,25 +184,23 @@ describe('Contracts', () => {
     const logger: LogProvider = {
       error: vi.fn(),
     };
-    Contracts.setConfig({ debug: true, logger });
-    expect(Contracts.getConfig().debug).toBeTruthy();
-    expect(Contracts.getConfig().logger).toBe(logger);
+    setConfig({ debug: true, logger });
+    expect(getConfig().debug).toBeTruthy();
+    expect(getConfig().logger).toBe(logger);
 
-    Contracts.resetConfig();
-    expect(Contracts.getConfig().debug).toBe(Contracts.getDefaultConfig().debug);
-    expect(Contracts.getConfig().logger).toBe(Contracts.getDefaultConfig().logger);
+    resetConfig();
+    expect(getConfig().debug).toBe(getDefaultConfig().debug);
+    expect(getConfig().logger).toBe(getDefaultConfig().logger);
   });
 
   it('resets to console logger when logger is omitted from config', () => {
     const logger: LogProvider = {
       error: vi.fn(),
     };
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {
-      //const i = 0;
-    });
+    const consoleError = vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {});
 
-    Contracts.setConfig({ logger });
-    Contracts.resetConfig();
+    setConfig({ logger });
+    resetConfig();
 
     expect(ENSURE(false, 'failed', null)).toBe(false);
     expect(logger.error).not.toHaveBeenCalled();
