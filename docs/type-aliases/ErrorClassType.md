@@ -4,13 +4,19 @@
 
 [@ayapapa-npm/contracts-js](../README.md) / ErrorClassType
 
-# Type Alias: ErrorClassType
+# Type Alias: ErrorClassType\<T\>
 
-> **ErrorClassType** = (...`args`) => `Error`
+> **ErrorClassType**\<`T`\> = (...`args`) => `T`
 
-Defined in: [lib/Contracts.ts:9](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L9)
+Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L10)
 
 Type of the custom error class type.
+
+## Type Parameters
+
+### T
+
+`T` *extends* `Error` = `Error`
 
 ## Parameters
 
@@ -20,4 +26,4 @@ Type of the custom error class type.
 
 ## Returns
 
-`Error`
+`T`

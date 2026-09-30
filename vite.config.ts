@@ -14,9 +14,12 @@ export default defineConfig({
   },
   // Write settings to disable only in the test environment here.
   test: {
+    // Asynchronous execution of test files is prohibited.
+    fileParallelism: false,
+
     // File patterns to exclude
     exclude: [...configDefaults.exclude, 'e2e/*'],
-    
+
     // Coverage measurement settings
     coverage: {
       provider: 'v8', // 'istanbul'

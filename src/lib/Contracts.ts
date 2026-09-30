@@ -6,7 +6,10 @@ export type LogProvider = Pick<Console,  'error'>;
 /**
  * Type of the custom error class type.
  */
-export type ErrorClassType = new (...args: any[]) => Error;
+//export type ErrorClassType = new (...args: any[]) => Error;
+export type ErrorClassType<T extends Error = Error> = {
+  new (...args: any[]): T;
+};
 
 /**
  * Configuration

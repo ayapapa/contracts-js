@@ -5,10 +5,13 @@
     "moduleResolution": "NodeNext",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "types": ["node"],
     "allowImportingTsExtensions": true,
+
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
 
     "strict": true,
     "noImplicitReturns": true, 
@@ -19,6 +22,8 @@
     "exactOptionalPropertyTypes": true,
   },
   "include": [
-    "src/**/*"
+    "src/*",
+    "src/**/*",
+    "test/*.ts",
   ]
 }

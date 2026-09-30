@@ -5,7 +5,9 @@ type LogProvider = Pick<Console, 'error'>;
 /**
  * Type of the custom error class type.
  */
-type ErrorClassType = new (...args: any[]) => Error;
+type ErrorClassType<T extends Error = Error> = {
+    new (...args: any[]): T;
+};
 /**
  * Configuration
  */

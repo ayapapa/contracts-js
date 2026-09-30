@@ -6,7 +6,7 @@
 
 # Class: Contracts
 
-Defined in: [lib/Contracts.ts:69](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L69)
+Defined in: [lib/Contracts.ts:72](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L72)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [lib/Contracts.ts:69](https://github.com/ayapapa/contracts-js/blob/3
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:80](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L80)
+Defined in: [lib/Contracts.ts:83](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L83)
 
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
@@ -36,7 +36,7 @@ Please use `setConfig()` to change the debug mode.**
 
 > `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:489](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L489)
+Defined in: [lib/Contracts.ts:492](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L492)
 
 Checks a postcondition after execution.
 
@@ -71,7 +71,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -127,7 +127,7 @@ function double(value) {
 
 > `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:552](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L552)
+Defined in: [lib/Contracts.ts:555](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L555)
 
 Checks a postcondition in debug mode only.
 
@@ -161,7 +161,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -206,7 +206,7 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:152](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L152)
+Defined in: [lib/Contracts.ts:155](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L155)
 
 Get the current configurations.
 
@@ -228,7 +228,7 @@ Default configurations.
 
 > `static` **getDefaultConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:144](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L144)
+Defined in: [lib/Contracts.ts:147](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L147)
 
 Get the default configurations.
 
@@ -250,7 +250,7 @@ Default configurations.
 
 > `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:624](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L624)
+Defined in: [lib/Contracts.ts:627](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L627)
 
 Checks an invariant condition.
 
@@ -285,7 +285,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -338,7 +338,7 @@ class BankAccount {
 
 > `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg?`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:687](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L687)
+Defined in: [lib/Contracts.ts:690](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L690)
 
 Checks an invariant condition in debug mode only.
 
@@ -372,7 +372,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -417,7 +417,7 @@ Contracts.INVARIANT_DEBUG(
 
 > `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:351](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L351)
+Defined in: [lib/Contracts.ts:354](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L354)
 
 Checks a precondition before execution.
 
@@ -451,7 +451,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -505,7 +505,7 @@ function divide(a, b) {
 
 > `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:414](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L414)
+Defined in: [lib/Contracts.ts:417](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L417)
 
 Checks a precondition in debug mode only.
 
@@ -539,7 +539,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -584,7 +584,7 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(`this`): `void`
 
-Defined in: [lib/Contracts.ts:161](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L161)
+Defined in: [lib/Contracts.ts:164](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L164)
 
 Reset the current configurations to the default configurations.
 
@@ -606,7 +606,7 @@ Default configurations.
 
 > `static` **setConfig**(`this`, `config`, `reset?`): `void`
 
-Defined in: [lib/Contracts.ts:125](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L125)
+Defined in: [lib/Contracts.ts:128](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L128)
 
 Configures contract checking behavior.
 
@@ -666,7 +666,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 > `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:216](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L216)
+Defined in: [lib/Contracts.ts:219](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L219)
 
 Verifies an intermediate condition during execution.
 
@@ -704,7 +704,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
@@ -751,7 +751,7 @@ Contracts.VERIFY(
 
 > `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
 
-Defined in: [lib/Contracts.ts:279](https://github.com/ayapapa/contracts-js/blob/3ad978ae461884e8eb06ece527d3717f78a5867e/src/lib/Contracts.ts#L279)
+Defined in: [lib/Contracts.ts:282](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L282)
 
 Verifies an intermediate condition in debug mode only.
 
@@ -785,7 +785,7 @@ Failure message.
 
 ##### ErrorClass?
 
-[`ErrorClassType`](../type-aliases/ErrorClassType.md) \| `null`
+[`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
 This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);

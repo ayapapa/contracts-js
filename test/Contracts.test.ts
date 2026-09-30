@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
-import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index';
+import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index.ts';
 
 const { REQUIRE, REQUIRE_DEBUG, VERIFY, VERIFY_DEBUG, ENSURE, ENSURE_DEBUG, INVARIANT, INVARIANT_DEBUG,
   setConfig, getConfig, getDefaultConfig, resetConfig
@@ -133,7 +133,7 @@ describe('Contracts', () => {
 
   it('sets config null values', () => {
     //const logger: LogProvider = { error: vi.fn() };
-    setConfig({ debug: undefined, logger: undefined });
+    setConfig({ debug: undefined, logger: undefined } as unknown as Config); // Forced type cast due to undefined specification.
     expect(Contracts.DEBUG_MODE).toBe(getDefaultConfig().debug);
     expect(getConfig().debug).toBe(getDefaultConfig().debug);
     expect(getConfig().logger).toBe(getDefaultConfig().logger);
@@ -197,7 +197,7 @@ describe('Contracts', () => {
     const logger: LogProvider = {
       error: vi.fn(),
     };
-    const consoleError = vi.spyOn(console, 'error').mockImplementation((...args: unknown[]) => {});
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     setConfig({ logger });
     resetConfig();
