@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
-import { Contracts, type Config, type ConfigKey, type LogProvider } from '../src/index.ts';
+import { Contracts, type Config, type ConfigKey, type IsOk, type LogProvider } from '../src/index.ts';
 
 const { REQUIRE, REQUIRE_DEBUG, VERIFY, VERIFY_DEBUG, ENSURE, ENSURE_DEBUG, INVARIANT, INVARIANT_DEBUG,
   setConfig, getConfig, getDefaultConfig, resetConfig
@@ -36,11 +36,52 @@ describe('Contracts', () => {
     expect(INVARIANT(true, 'ok')).toBe(true);
   });
 
+  it('accepts condition callbacks and returns the evaluated value', () => {
+    const verify = vi.fn(() => true);
+    const require = vi.fn(() => true);
+    const ensure = vi.fn(() => true);
+    const invariant = vi.fn(() => true);
+
+    expect(VERIFY(verify, 'ok')).toBe(true);
+    expect(REQUIRE(require, 'ok')).toBe(true);
+    expect(ENSURE(ensure, 'ok')).toBe(true);
+    expect(INVARIANT(invariant, 'ok')).toBe(true);
+    expect(verify).toHaveBeenCalledOnce();
+    expect(require).toHaveBeenCalledOnce();
+    expect(ensure).toHaveBeenCalledOnce();
+    expect(invariant).toHaveBeenCalledOnce();
+  });
+
+  it('returns void from passing condition callbacks when void output is configured', () => {
+    const isOk = vi.fn(() => true);
+
+    setConfig({ output: 'void' });
+
+    expect(VERIFY(isOk, 'ok')).toBeUndefined();
+    expect(isOk).toHaveBeenCalledOnce();
+  });
+
   it('throws an error with the contract prefix when the condition fails', () => {
     expect(() => VERIFY(false, 'failed')).toThrow('[VERIFY] failed');
     expect(() => REQUIRE(false, 'failed')).toThrow('[REQUIRE] failed');
     expect(() => ENSURE(false, 'failed')).toThrow('[ENSURE] failed');
     expect(() => INVARIANT(false, 'failed')).toThrow('[INVARIANT] failed');
+  });
+
+  it('throws when condition callbacks evaluate to false', () => {
+    const verify = vi.fn(() => false);
+    const require = vi.fn(() => false);
+    const ensure = vi.fn(() => false);
+    const invariant = vi.fn(() => false);
+
+    expect(() => VERIFY(verify, 'failed')).toThrow('[VERIFY] failed');
+    expect(() => REQUIRE(require, 'failed')).toThrow('[REQUIRE] failed');
+    expect(() => ENSURE(ensure, 'failed')).toThrow('[ENSURE] failed');
+    expect(() => INVARIANT(invariant, 'failed')).toThrow('[INVARIANT] failed');
+    expect(verify).toHaveBeenCalledOnce();
+    expect(require).toHaveBeenCalledOnce();
+    expect(ensure).toHaveBeenCalledOnce();
+    expect(invariant).toHaveBeenCalledOnce();
   });
 
   it('uses the supplied error class and custom properties', () => {
@@ -102,11 +143,48 @@ describe('Contracts', () => {
     expect(error).toHaveBeenCalledWith('[VERIFY] failed', { code: 'E_CONTRACT' });
   });
 
+  it('logs when a condition callback evaluates to false and no error class is supplied', () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const isOk = vi.fn(() => false);
+
+    expect(VERIFY(isOk, 'failed', null, { code: 'E_CONTRACT' })).toBe(false);
+    expect(isOk).toHaveBeenCalledOnce();
+    expect(error).toHaveBeenCalledWith('[VERIFY] failed', { code: 'E_CONTRACT' });
+  });
+
   it('skips debug checks when debug mode is disabled', () => {
     expect(VERIFY_DEBUG(false, 'failed')).toBe(false);
     expect(REQUIRE_DEBUG(false, 'failed')).toBe(false);
     expect(ENSURE_DEBUG(false, 'failed')).toBe(false);
     expect(INVARIANT_DEBUG(false, 'failed')).toBe(false);
+  });
+
+  it('evaluates condition callbacks for debug checks when debug mode is disabled and boolean output is configured', () => {
+    const verify = vi.fn(() => false);
+    const require = vi.fn(() => false);
+    const ensure = vi.fn(() => false);
+    const invariant = vi.fn(() => false);
+
+    expect(VERIFY_DEBUG(verify, 'failed')).toBe(false);
+    expect(REQUIRE_DEBUG(require, 'failed')).toBe(false);
+    expect(ENSURE_DEBUG(ensure, 'failed')).toBe(false);
+    expect(INVARIANT_DEBUG(invariant, 'failed')).toBe(false);
+    expect(verify).toHaveBeenCalledOnce();
+    expect(require).toHaveBeenCalledOnce();
+    expect(ensure).toHaveBeenCalledOnce();
+    expect(invariant).toHaveBeenCalledOnce();
+  });
+
+  it('does not evaluate condition callbacks for debug checks when debug mode is disabled and void output is configured', () => {
+    const isOk = vi.fn(() => false);
+
+    setConfig({ output: 'void' });
+
+    expect(VERIFY_DEBUG(isOk, 'failed')).toBeUndefined();
+    expect(REQUIRE_DEBUG(isOk, 'failed')).toBeUndefined();
+    expect(ENSURE_DEBUG(isOk, 'failed')).toBeUndefined();
+    expect(INVARIANT_DEBUG(isOk, 'failed')).toBeUndefined();
+    expect(isOk).not.toHaveBeenCalled();
   });
 
   it('runs debug checks when debug mode is enabled', () => {
@@ -116,6 +194,15 @@ describe('Contracts', () => {
     expect(() => REQUIRE_DEBUG(false, 'failed')).toThrow('[REQUIRE_DEBUG] failed');
     expect(() => ENSURE_DEBUG(false, 'failed')).toThrow('[ENSURE_DEBUG] failed');
     expect(() => INVARIANT_DEBUG(false, 'failed')).toThrow('[INVARIANT_DEBUG] failed');
+  });
+
+  it('runs debug checks with condition callbacks when debug mode is enabled', () => {
+    const isOk = vi.fn(() => false);
+
+    setConfig({ debug: true });
+
+    expect(() => VERIFY_DEBUG(isOk, 'failed')).toThrow('[VERIFY_DEBUG] failed');
+    expect(isOk).toHaveBeenCalledOnce();
   });
 
   it('sets config with reset=false', () => {
@@ -215,8 +302,9 @@ describe('Contracts', () => {
   });
 
   it('exports public types', () => {
-    expectTypeOf<Config>().toEqualTypeOf<{ debug?: boolean; logger?: LogProvider }>();
-    expectTypeOf<ConfigKey>().toEqualTypeOf<'debug' | 'logger'>();
+    expectTypeOf<Config>().toEqualTypeOf<{ debug?: boolean; logger?: LogProvider, output?: 'boolean' | 'void' }>();
+    expectTypeOf<ConfigKey>().toEqualTypeOf<'debug' | 'logger' | 'output'>();
+    expectTypeOf<IsOk>().toEqualTypeOf<boolean | (() => boolean)>();
   });
 
 });

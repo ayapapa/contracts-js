@@ -6,7 +6,7 @@
 
 # Class: Contracts
 
-Defined in: [lib/Contracts.ts:72](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L72)
+Defined in: [lib/Contracts.ts:85](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L85)
 
 ## Constructors
 
@@ -24,7 +24,7 @@ Defined in: [lib/Contracts.ts:72](https://github.com/ayapapa/contracts-js/blob/0
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:83](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L83)
+Defined in: [lib/Contracts.ts:96](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L96)
 
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
@@ -34,9 +34,9 @@ Please use `setConfig()` to change the debug mode.**
 
 ### ENSURE()
 
-> `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:492](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L492)
+Defined in: [lib/Contracts.ts:506](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L506)
 
 Checks a postcondition after execution.
 
@@ -59,7 +59,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -97,9 +97,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -125,9 +125,9 @@ function double(value) {
 
 ### ENSURE\_DEBUG()
 
-> `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:555](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L555)
+Defined in: [lib/Contracts.ts:569](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L569)
 
 Checks a postcondition in debug mode only.
 
@@ -149,7 +149,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -187,9 +187,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -206,7 +206,7 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:155](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L155)
+Defined in: [lib/Contracts.ts:169](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L169)
 
 Get the current configurations.
 
@@ -228,7 +228,7 @@ Default configurations.
 
 > `static` **getDefaultConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:147](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L147)
+Defined in: [lib/Contracts.ts:161](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L161)
 
 Get the default configurations.
 
@@ -248,9 +248,9 @@ Default configurations.
 
 ### INVARIANT()
 
-> `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:627](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L627)
+Defined in: [lib/Contracts.ts:641](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L641)
 
 Checks an invariant condition.
 
@@ -273,7 +273,7 @@ INVARIANT represents conditions that must always remain true.
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -311,9 +311,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -336,9 +336,9 @@ class BankAccount {
 
 ### INVARIANT\_DEBUG()
 
-> `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg?`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg?`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:690](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L690)
+Defined in: [lib/Contracts.ts:704](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L704)
 
 Checks an invariant condition in debug mode only.
 
@@ -360,7 +360,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -398,9 +398,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -415,9 +415,9 @@ Contracts.INVARIANT_DEBUG(
 
 ### REQUIRE()
 
-> `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:354](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L354)
+Defined in: [lib/Contracts.ts:368](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L368)
 
 Checks a precondition before execution.
 
@@ -439,7 +439,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -477,9 +477,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -503,9 +503,9 @@ function divide(a, b) {
 
 ### REQUIRE\_DEBUG()
 
-> `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:417](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L417)
+Defined in: [lib/Contracts.ts:431](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L431)
 
 Checks a precondition in debug mode only.
 
@@ -527,7 +527,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -565,9 +565,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -584,7 +584,7 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(`this`): `void`
 
-Defined in: [lib/Contracts.ts:164](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L164)
+Defined in: [lib/Contracts.ts:178](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L178)
 
 Reset the current configurations to the default configurations.
 
@@ -606,7 +606,7 @@ Default configurations.
 
 > `static` **setConfig**(`this`, `config`, `reset?`): `void`
 
-Defined in: [lib/Contracts.ts:128](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L128)
+Defined in: [lib/Contracts.ts:142](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L142)
 
 Configures contract checking behavior.
 
@@ -664,9 +664,9 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 ### VERIFY()
 
-> `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:219](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L219)
+Defined in: [lib/Contracts.ts:233](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L233)
 
 Verifies an intermediate condition during execution.
 
@@ -692,9 +692,9 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
-Condition result(`boolean`)  to be verified.
+Condition result(`boolean`) to be verified.
 
 ##### ngMsg
 
@@ -730,9 +730,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 
@@ -749,9 +749,9 @@ Contracts.VERIFY(
 
 ### VERIFY\_DEBUG()
 
-> `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean`
+> `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass?`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:282](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L282)
+Defined in: [lib/Contracts.ts:296](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L296)
 
 Verifies an intermediate condition in debug mode only.
 
@@ -773,7 +773,7 @@ Typical usage:
 
 ##### isOk
 
-`boolean`
+[`IsOk`](../type-aliases/IsOk.md)
 
 Condition result(`boolean`)  to be verified.
 
@@ -811,9 +811,9 @@ Additional properties assigned to the error object.
 
 #### Returns
 
-`boolean`
+`boolean` \| `void`
 
-Returns the original condition value.
+Returns the original condition value or `void`. This depends on the settings.
 
 #### Example
 

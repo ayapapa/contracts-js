@@ -8,6 +8,6 @@
 
 > **ConfigKey** = keyof [`Config`](../interfaces/Config.md)
 
-Defined in: [lib/Contracts.ts:34](https://github.com/ayapapa/contracts-js/blob/0f16f535a2a43bdf0c886641f4bd6083e94d64f3/src/lib/Contracts.ts#L34)
+Defined in: [lib/Contracts.ts:47](https://github.com/ayapapa/contracts-js/blob/112a5da28ccfa6fada48ec465ebc19d74b944555/src/lib/Contracts.ts#L47)
 
 Type of `Config`'s key.

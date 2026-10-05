@@ -3,6 +3,10 @@
  */
 type LogProvider = Pick<Console, 'error'>;
 /**
+ * Type of the condition.
+ */
+type IsOk = boolean | (() => boolean);
+/**
  * Type of the custom error class type.
  */
 type ErrorClassType<T extends Error = Error> = {
@@ -24,6 +28,13 @@ interface Config {
      * This module uses only the `error` method.
      */
     logger?: LogProvider;
+    /**
+     * The return type of the evaluation method.<br>
+     * When `void` is specified as the return type and debug mode is off,
+     * `XXX_DEBUG()` neither evaluates the first argument nor validates the evaluation callback.
+     * As a result, any provided evaluation callback is not invoked.
+     */
+    output?: 'boolean' | 'void';
 }
 /** Type of `Config`'s key. */
 type ConfigKey = keyof Config;
@@ -142,7 +153,7 @@ declare class Contracts {
      * - Check temporary assumptions during execution.
      *
      * @param isOk
-     * Condition result(`boolean`)  to be verified.
+     * Condition result(`boolean`) to be verified.
      *
      * @param ngMsg
      * Failure message.
@@ -165,7 +176,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * const result = calculate();
@@ -175,7 +186,7 @@ declare class Contracts {
      *   'Calculation result must not be negative'
      * );
      */
-    static VERIFY(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static VERIFY(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Verifies an intermediate condition in debug mode only.
      *
@@ -213,7 +224,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * Contracts.VERIFY_DEBUG(
@@ -221,7 +232,7 @@ declare class Contracts {
      *   'Intermediate value must not be null'
      * );
      */
-    static VERIFY_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static VERIFY_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition before execution.
      *
@@ -259,7 +270,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * function divide(a, b) {
@@ -276,7 +287,7 @@ declare class Contracts {
      *   return a / b;
      * }
      */
-    static REQUIRE(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static REQUIRE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition in debug mode only.
      *
@@ -314,7 +325,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * Contracts.REQUIRE_DEBUG(
@@ -322,7 +333,7 @@ declare class Contracts {
      *   'User must exist during debugging'
      * );
      */
-    static REQUIRE_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static REQUIRE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition after execution.
      *
@@ -361,7 +372,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * function double(value) {
@@ -380,7 +391,7 @@ declare class Contracts {
      *   return result;
      * }
      */
-    static ENSURE(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static ENSURE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition in debug mode only.
      *
@@ -418,7 +429,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * Contracts.ENSURE_DEBUG(
@@ -426,7 +437,7 @@ declare class Contracts {
      *   'Result should exist during debugging'
      * );
      */
-    static ENSURE_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static ENSURE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition.
      *
@@ -465,7 +476,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * class BankAccount {
@@ -481,7 +492,7 @@ declare class Contracts {
      *
      * }
      */
-    static INVARIANT(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static INVARIANT(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition in debug mode only.
      *
@@ -519,7 +530,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      * @example
      * Contracts.INVARIANT_DEBUG(
@@ -527,7 +538,7 @@ declare class Contracts {
      *   'Cache size exceeded expected limit'
      * );
      */
-    static INVARIANT_DEBUG(this: void, isOk: boolean, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean;
+    static INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Core contract evaluation logic.
      *
@@ -571,7 +582,7 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      */
     private static check;
@@ -581,7 +592,7 @@ declare class Contracts {
      * Executes contract validation only when `debug_mode`(internal state) is enabled.
      *
      * When `debug_mode`(internal state) is disabled,
-     * this method returns the original condition value
+     * this method Returns the original condition value or `void`. This depends on the settings
      * without performing any validation.
      *
      * @internal
@@ -613,10 +624,10 @@ declare class Contracts {
      * Additional properties assigned to the error object.
      *
      * @returns
-     * Returns the original condition value.
+     * Returns the original condition value or `void`. This depends on the settings.
      *
      */
     private static checkDebug;
 }
 
-export { type Config, type ConfigKey, Contracts, type ErrorClassType, type LogProvider, Contracts as default };
+export { type Config, type ConfigKey, Contracts, type ErrorClassType, type IsOk, type LogProvider, Contracts as default };

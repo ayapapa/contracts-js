@@ -39,7 +39,8 @@ var Contracts = class _Contracts {
   /** default configuration */
   static #defaultConf = {
     debug: false,
-    logger: console
+    logger: console,
+    output: "boolean"
   };
   /** Current config. */
   static #config = { ..._Contracts.#defaultConf };
@@ -126,7 +127,7 @@ var Contracts = class _Contracts {
    * - Check temporary assumptions during execution.
    *
    * @param isOk
-   * Condition result(`boolean`)  to be verified.
+   * Condition result(`boolean`) to be verified.
    *
    * @param ngMsg
    * Failure message.
@@ -149,7 +150,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * const result = calculate();
@@ -206,7 +207,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * Contracts.VERIFY_DEBUG(
@@ -261,7 +262,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * function divide(a, b) {
@@ -325,7 +326,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * Contracts.REQUIRE_DEBUG(
@@ -381,7 +382,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * function double(value) {
@@ -447,7 +448,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * Contracts.ENSURE_DEBUG(
@@ -503,7 +504,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * class BankAccount {
@@ -566,7 +567,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns 
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    * @example
    * Contracts.INVARIANT_DEBUG(
@@ -627,11 +628,12 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    */
   static check(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eParams, eProps) {
-    if (!isOk) {
+    const ok = _Contracts.#isOk(isOk);
+    if (!ok) {
       const msg = `[${prefix}] ${ngMsg ?? ""}`;
       if (ErrorClass) {
         const err = eParams ? new ErrorClass(msg, eParams) : new ErrorClass(msg);
@@ -645,7 +647,7 @@ var Contracts = class _Contracts {
         _Contracts.#getLogger().error(...args);
       }
     }
-    return isOk;
+    return _Contracts.#config.output === "boolean" ? ok : void 0;
   }
   /**
    * Debug-only contract evaluation logic.
@@ -653,7 +655,7 @@ var Contracts = class _Contracts {
    * Executes contract validation only when `debug_mode`(internal state) is enabled.
    *
    * When `debug_mode`(internal state) is disabled,
-   * this method returns the original condition value
+   * this method Returns the original condition value or `void`. This depends on the settings
    * without performing any validation.
    *
    * @internal
@@ -685,7 +687,7 @@ var Contracts = class _Contracts {
    * Additional properties assigned to the error object.
    *
    * @returns
-   * Returns the original condition value.
+   * Returns the original condition value or `void`. This depends on the settings.
    *
    */
   static checkDebug(isOk, prefix = "CHECK", ngMsg = "", ErrorClass = Error, eParams, eProps) {
@@ -696,7 +698,7 @@ var Contracts = class _Contracts {
       ErrorClass,
       eParams,
       eProps
-    ) : isOk;
+    ) : _Contracts.#config.output === "boolean" ? _Contracts.#isOk(isOk) : void 0;
   }
   /** 
    * @internal
@@ -704,6 +706,14 @@ var Contracts = class _Contracts {
    */
   static #getLogger() {
     return _Contracts.#config.logger;
+  }
+  /**
+   * @internal
+   * @param isOk 
+   * @returns 
+   */
+  static #isOk(isOk) {
+    return typeof isOk === "function" ? isOk() : isOk;
   }
 };
 

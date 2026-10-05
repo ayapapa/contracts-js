@@ -16,6 +16,7 @@
 
 - [ConfigKey](type-aliases/ConfigKey.md)
 - [ErrorClassType](type-aliases/ErrorClassType.md)
+- [IsOk](type-aliases/IsOk.md)
 - [LogProvider](type-aliases/LogProvider.md)
 
 ## References
