@@ -1,14 +1,14 @@
-[**@ayapapa-npm/contracts-js**](../README.md)
+[**@ayapapa-npm/contracts-js**](../api.md)
 
 ***
 
-[@ayapapa-npm/contracts-js](../README.md) / ErrorClassType
+[@ayapapa-npm/contracts-js](../api.md) / ErrorClassType
 
 # Type Alias: ErrorClassType\<T\>
 
 > **ErrorClassType**\<`T`\> = (...`args`) => `T`
 
-Defined in: [lib/Contracts.ts:15](https://github.com/ayapapa/contracts-js/blob/736ae05672ae8baf885e5c9d42add37204b5e64e/src/lib/Contracts.ts#L15)
+Defined in: [lib/Contracts.ts:15](https://github.com/ayapapa/contracts-js/blob/d56bd8f5c65d47b0efd86e94ba02f980ef1ef897/src/lib/Contracts.ts#L15)
 
 Type of the custom error class type.
 
