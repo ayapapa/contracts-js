@@ -10,9 +10,11 @@
         "run",
         "--testTimeout=0"
       ],
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "autoAttachChildProcesses": true,
+      "sourceMaps": true,
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/node_modules/**"
@@ -26,11 +28,15 @@
       "args": [
         "run",
         "${file}",
-        "--testTimeout=0"
+        "--testTimeout=0",
+        "--pool=forks",
+        "--maxWorkers=1"
       ],
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "autoAttachChildProcesses": true,
+      "sourceMaps": true,
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/node_modules/**"
@@ -38,12 +44,17 @@
     },
     {
       "name": "Debug Current File",
-      "request": "launch",
       "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "autoAttachChildProcesses": true,
+      "sourceMaps": true,
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${file}"
     }
   ]
 }

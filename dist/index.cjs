@@ -40,7 +40,7 @@ var Contracts = class _Contracts {
   static #defaultConf = {
     debug: false,
     logger: console,
-    output: "boolean"
+    returnType: "void"
   };
   /** Current config. */
   static #config = { ..._Contracts.#defaultConf };
@@ -647,7 +647,7 @@ var Contracts = class _Contracts {
         _Contracts.#getLogger().error(...args);
       }
     }
-    return _Contracts.#config.output === "boolean" ? ok : void 0;
+    return _Contracts.#config.returnType === "boolean" ? ok : void 0;
   }
   /**
    * Debug-only contract evaluation logic.
@@ -698,7 +698,7 @@ var Contracts = class _Contracts {
       ErrorClass,
       eParams,
       eProps
-    ) : _Contracts.#config.output === "boolean" ? _Contracts.#isOk(isOk) : void 0;
+    ) : _Contracts.#config.returnType === "boolean" ? _Contracts.#isOk(isOk) : void 0;
   }
   /** 
    * @internal
