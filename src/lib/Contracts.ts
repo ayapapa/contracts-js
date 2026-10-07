@@ -23,7 +23,7 @@ export interface Config {
   /**
    * Debug mode state.
    * If `true`, `debug_mode`(internal state) is enabled; otherwise, it is disabled.
-   * The default is `false`.
+   * Default is `false`.
    */
   debug?: boolean;
 
@@ -31,6 +31,7 @@ export interface Config {
    * External logger.
    * If specified, it is used instead of the standard logger, `console`.
    * This module uses only the `error` method.
+   * Default is `console`.
    */
   logger?: LogProvider;
 
@@ -39,8 +40,9 @@ export interface Config {
    * When `void` is specified as the return type and debug mode is off,
    * `XXX_DEBUG()` neither evaluates the first argument nor validates the evaluation callback.
    * As a result, any provided evaluation callback is not invoked.
+   * Default is `void`.
    */
-  output?: 'boolean' | 'void',
+  returnType?: 'boolean' | 'void',
 }
 
 /** Type of `Config`'s key. */
@@ -97,9 +99,9 @@ export class Contracts {
 
   /** default configuration */
   static readonly #defaultConf: Readonly<Required<Config>>  = {
-    debug:  false,
-    logger: console,
-    output: 'boolean',
+    debug     : false,
+    logger    : console,
+    returnType: 'void',
   };
 
   /** Current config. */
@@ -796,7 +798,7 @@ export class Contracts {
       }
     }
 
-    return Contracts.#config.output === 'boolean' ? ok : void 0;
+    return Contracts.#config.returnType === 'boolean' ? ok : void 0;
   }
 
   /**
@@ -858,7 +860,7 @@ export class Contracts {
           eParams,
           eProps
         )
-      : Contracts.#config.output === 'boolean' ? Contracts.#isOk(isOk) : void 0;
+      : Contracts.#config.returnType === 'boolean' ? Contracts.#isOk(isOk) : void 0;
   }
 
   /** 

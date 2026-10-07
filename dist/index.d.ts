@@ -19,13 +19,14 @@ interface Config {
     /**
      * Debug mode state.
      * If `true`, `debug_mode`(internal state) is enabled; otherwise, it is disabled.
-     * The default is `false`.
+     * Default is `false`.
      */
     debug?: boolean;
     /**
      * External logger.
      * If specified, it is used instead of the standard logger, `console`.
      * This module uses only the `error` method.
+     * Default is `console`.
      */
     logger?: LogProvider;
     /**
@@ -33,8 +34,9 @@ interface Config {
      * When `void` is specified as the return type and debug mode is off,
      * `XXX_DEBUG()` neither evaluates the first argument nor validates the evaluation callback.
      * As a result, any provided evaluation callback is not invoked.
+     * Default is `void`.
      */
-    output?: 'boolean' | 'void';
+    returnType?: 'boolean' | 'void';
 }
 /** Type of `Config`'s key. */
 type ConfigKey = keyof Config;
