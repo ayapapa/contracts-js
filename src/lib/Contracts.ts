@@ -69,8 +69,6 @@ export const Contracts = createContracts(defaultConf);
  * @param config Configurations.
  * @returns A contract class object. Please refer to `See` for the definition of this object..
  * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
- * 
- * @class
  */
 export function createContracts(config: Config = defaultConf) {
 
