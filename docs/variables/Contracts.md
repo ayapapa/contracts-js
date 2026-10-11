@@ -6,8 +6,14 @@
 
 # Variable: Contracts
 
-> `const` **Contracts**: *typeof* `Contracts`
+> `const` **Contracts**: *typeof* `ContractsImpl`
 
-Defined in: [lib/Contracts.ts:61](https://github.com/ayapapa/contracts-js/blob/121e2dc59467865e946c9e633216c88a633a58aa/src/lib/Contracts.ts#L61)
+Defined in: [lib/Contracts.ts:471](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L471)
 
-Contracts
+Contracts.
+
+For details, see [ContractsApi](../classes/ContractsApi.md).
+
+## See
+
+[ContractsApi](../classes/ContractsApi.md)

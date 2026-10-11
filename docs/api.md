@@ -4,6 +4,10 @@
 
 # @ayapapa-npm/contracts-js
 
+## Classes
+
+- [ContractsApi](classes/ContractsApi.md)
+
 ## Interfaces
 
 - [Config](interfaces/Config.md)
