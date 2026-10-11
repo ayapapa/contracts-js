@@ -4,10 +4,6 @@
 
 # @ayapapa-npm/contracts-js
 
-## Classes
-
-- [Contracts](classes/Contracts.md)
-
 ## Interfaces
 
 - [Config](interfaces/Config.md)
@@ -19,8 +15,16 @@
 - [IsOk](type-aliases/IsOk.md)
 - [LogProvider](type-aliases/LogProvider.md)
 
+## Variables
+
+- [Contracts](variables/Contracts.md)
+
+## Functions
+
+- [createContracts](functions/createContracts.md)
+
 ## References
 
 ### default
 
-Renames and re-exports [Contracts](classes/Contracts.md)
+Renames and re-exports [Contracts](variables/Contracts.md)

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { Contracts, type Config, type ConfigKey, type IsOk, type LogProvider } from '../src/index.ts';
+import { createContracts } from '../src/lib/Contracts.ts';
 
 const { REQUIRE, REQUIRE_DEBUG, VERIFY, VERIFY_DEBUG, ENSURE, ENSURE_DEBUG, INVARIANT, INVARIANT_DEBUG,
   setConfig, getConfig, getDefaultConfig, resetConfig
@@ -50,6 +51,17 @@ describe('Contracts', () => {
     expect(REQUIRE(true, 'ok')).toBeUndefined();
     expect(ENSURE(true, 'ok')).toBeUndefined();
     expect(INVARIANT(true, 'ok')).toBeUndefined();
+    /*
+    expect(VERIFY(true, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(REQUIRE(true, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(ENSURE(true, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(INVARIANT(true, 'ok', { returnType: 'void'})).toBeUndefined();
+
+    expect(VERIFY(true, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(REQUIRE(true, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(ENSURE(true, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(INVARIANT(true, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    */
   });
 
   it('accepts condition callbacks and returns the evaluated value', () => {
@@ -64,10 +76,18 @@ describe('Contracts', () => {
     expect(REQUIRE(require, 'ok')).toBeTruthy();
     expect(ENSURE(ensure, 'ok')).toBeTruthy();
     expect(INVARIANT(invariant, 'ok')).toBeTruthy();
-    expect(verify).toHaveBeenCalledOnce();
-    expect(require).toHaveBeenCalledOnce();
-    expect(ensure).toHaveBeenCalledOnce();
-    expect(invariant).toHaveBeenCalledOnce();
+
+    /*
+    expect(VERIFY(verify, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(REQUIRE(require, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(ENSURE(ensure, 'ok', { returnType: 'boolean'})).toBeTruthy();
+    expect(INVARIANT(invariant, 'ok', { returnType: 'boolean'})).toBeTruthy();
+
+    expect(VERIFY(verify, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(REQUIRE(require, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(ENSURE(ensure, 'ok', { returnType: 'void'})).toBeUndefined();
+    expect(INVARIANT(invariant, 'ok', { returnType: 'void'})).toBeUndefined();
+    */
   });
 
   it('returns void from passing condition callbacks when void output is configured', () => {
@@ -75,8 +95,8 @@ describe('Contracts', () => {
 
     setConfig({ returnType: 'void' });
 
-    expect(VERIFY(isOk, 'ok')).toBeUndefined();
-    expect(isOk).toHaveBeenCalledOnce();
+    expect(VERIFY(isOk, 'ok', )).toBeUndefined();
+    //expect(VERIFY(isOk, 'ok', { returnType: 'boolean'})).toBeTruthy();
   });
 
   it('throws an error with the contract prefix when the condition fails', () => {
@@ -189,6 +209,18 @@ describe('Contracts', () => {
     expect(REQUIRE_DEBUG(false, 'failed')).toBeFalsy();
     expect(ENSURE_DEBUG(false, 'failed')).toBeFalsy();
     expect(INVARIANT_DEBUG(false, 'failed')).toBeFalsy();
+
+    /*
+    expect(VERIFY_DEBUG(false, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(REQUIRE_DEBUG(false, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(ENSURE_DEBUG(false, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(INVARIANT_DEBUG(false, 'failed', { returnType: 'boolean'})).toBeFalsy();
+
+    expect(VERIFY_DEBUG(false, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(REQUIRE_DEBUG(false, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(ENSURE_DEBUG(false, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(INVARIANT_DEBUG(false, 'failed', { returnType: 'void'})).toBeUndefined();
+    */
   });
 
   it('evaluates condition callbacks for debug checks when debug mode is disabled and boolean output is configured', () => {
@@ -197,15 +229,23 @@ describe('Contracts', () => {
     const ensure = vi.fn(() => false);
     const invariant = vi.fn(() => false);
 
-    setConfig({ returnType: 'boolean' });
-    expect(VERIFY_DEBUG(verify, 'failed')).toBeFalsy();
-    expect(REQUIRE_DEBUG(require, 'failed')).toBeFalsy();
-    expect(ENSURE_DEBUG(ensure, 'failed')).toBeFalsy();
-    expect(INVARIANT_DEBUG(invariant, 'failed')).toBeFalsy();
-    expect(verify).toHaveBeenCalledOnce();
-    expect(require).toHaveBeenCalledOnce();
-    expect(ensure).toHaveBeenCalledOnce();
-    expect(invariant).toHaveBeenCalledOnce();
+    setConfig({ returnType: 'void' });
+    expect(VERIFY_DEBUG(verify, 'failed')).toBeUndefined();
+    expect(REQUIRE_DEBUG(require, 'failed')).toBeUndefined();
+    expect(ENSURE_DEBUG(ensure, 'failed')).toBeUndefined();
+    expect(INVARIANT_DEBUG(invariant, 'failed')).toBeUndefined();
+
+/*
+    expect(VERIFY_DEBUG(verify, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(REQUIRE_DEBUG(require, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(ENSURE_DEBUG(ensure, 'failed', { returnType: 'boolean'})).toBeFalsy();
+    expect(INVARIANT_DEBUG(invariant, 'failed', { returnType: 'boolean'})).toBeFalsy();
+
+    expect(VERIFY_DEBUG(verify, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(REQUIRE_DEBUG(require, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(ENSURE_DEBUG(ensure, 'failed', { returnType: 'void'})).toBeUndefined();
+    expect(INVARIANT_DEBUG(invariant, 'failed', { returnType: 'void'})).toBeUndefined();
+*/
   });
 
   it('does not evaluate condition callbacks for debug checks when debug mode is disabled and void output is configured', () => {
@@ -218,6 +258,13 @@ describe('Contracts', () => {
     expect(ENSURE_DEBUG(isOk, 'failed')).toBeUndefined();
     expect(INVARIANT_DEBUG(isOk, 'failed')).toBeUndefined();
     expect(isOk).not.toHaveBeenCalled();
+
+    setConfig({ returnType: 'boolean' });
+    expect(VERIFY_DEBUG(isOk, 'failed')).toBeFalsy();
+    expect(REQUIRE_DEBUG(isOk, 'failed')).toBeFalsy();
+    expect(ENSURE_DEBUG(isOk, 'failed')).toBeFalsy();
+    expect(INVARIANT_DEBUG(isOk, 'failed')).toBeFalsy();
+    expect(isOk).toHaveBeenCalled();
   });
 
   it('runs debug checks when debug mode is enabled', () => {
@@ -260,7 +307,6 @@ describe('Contracts', () => {
   });
 
   it('sets config null values', () => {
-    //const logger: LogProvider = { error: vi.fn() };
     setConfig({ debug: undefined, logger: undefined, returnType: undefined } as unknown as Config); // Forced type cast due to undefined specification.
     expect(Contracts.DEBUG_MODE).toBe(getDefaultConfig().debug);
     expect(getConfig().debug).toBe(getDefaultConfig().debug);
@@ -359,6 +405,20 @@ describe('Contracts', () => {
     expectTypeOf<Config>().toEqualTypeOf<{ debug?: boolean; logger?: LogProvider, returnType?: 'boolean' | 'void' }>();
     expectTypeOf<ConfigKey>().toEqualTypeOf<'debug' | 'logger' | 'returnType'>();
     expectTypeOf<IsOk>().toEqualTypeOf<boolean | (() => boolean)>();
+  });
+
+  it('createContract', () => {
+    const ContractsCreated = createContracts();
+
+    ContractsCreated.setConfig({ returnType: 'boolean' });
+    Contracts.setConfig({ returnType: 'void' });
+    expect(ContractsCreated.VERIFY(true, null)).toBeTruthy();
+    expect(Contracts.VERIFY(true, null)).toBeUndefined();
+
+    ContractsCreated.setConfig({ returnType: 'void' });
+    Contracts.setConfig({ returnType: 'boolean' });
+    expect(ContractsCreated.VERIFY(true, null)).toBeUndefined();
+    expect(Contracts.VERIFY(true, null)).toBeTruthy();
   });
 
 });

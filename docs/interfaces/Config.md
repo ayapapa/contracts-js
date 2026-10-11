@@ -6,7 +6,7 @@
 
 # Interface: Config
 
-Defined in: [lib/Contracts.ts:22](https://github.com/ayapapa/contracts-js/blob/d56bd8f5c65d47b0efd86e94ba02f980ef1ef897/src/lib/Contracts.ts#L22)
+Defined in: [lib/Contracts.ts:22](https://github.com/ayapapa/contracts-js/blob/121e2dc59467865e946c9e633216c88a633a58aa/src/lib/Contracts.ts#L22)
 
 Configuration
 
@@ -16,7 +16,7 @@ Configuration
 
 > `optional` **debug?**: `boolean`
 
-Defined in: [lib/Contracts.ts:28](https://github.com/ayapapa/contracts-js/blob/d56bd8f5c65d47b0efd86e94ba02f980ef1ef897/src/lib/Contracts.ts#L28)
+Defined in: [lib/Contracts.ts:28](https://github.com/ayapapa/contracts-js/blob/121e2dc59467865e946c9e633216c88a633a58aa/src/lib/Contracts.ts#L28)
 
 Debug mode state.
 If `true`, `debug_mode`(internal state) is enabled; otherwise, it is disabled.
@@ -28,7 +28,7 @@ Default is `false`.
 
 > `optional` **logger?**: [`LogProvider`](../type-aliases/LogProvider.md)
 
-Defined in: [lib/Contracts.ts:36](https://github.com/ayapapa/contracts-js/blob/d56bd8f5c65d47b0efd86e94ba02f980ef1ef897/src/lib/Contracts.ts#L36)
+Defined in: [lib/Contracts.ts:36](https://github.com/ayapapa/contracts-js/blob/121e2dc59467865e946c9e633216c88a633a58aa/src/lib/Contracts.ts#L36)
 
 External logger.
 If specified, it is used instead of the standard logger, `console`.
@@ -41,7 +41,7 @@ Default is `console`.
 
 > `optional` **returnType?**: `"boolean"` \| `"void"`
 
-Defined in: [lib/Contracts.ts:45](https://github.com/ayapapa/contracts-js/blob/d56bd8f5c65d47b0efd86e94ba02f980ef1ef897/src/lib/Contracts.ts#L45)
+Defined in: [lib/Contracts.ts:45](https://github.com/ayapapa/contracts-js/blob/121e2dc59467865e946c9e633216c88a633a58aa/src/lib/Contracts.ts#L45)
 
 The return type of the evaluation method.<br>
 When `void` is specified as the return type and debug mode is off,
