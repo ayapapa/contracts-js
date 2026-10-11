@@ -59,16 +59,16 @@ const defaultConf: Readonly<Required<Config>>  = {
 /**
  * Contracts.
  * 
- * For details, see [Contracts](../api/Contracts.md).
- * @see [Contracts](../api/Contracts.md)
+ * For details, see [ContractsAPI](../api/ContractsApi.md).
+ * @see [ContractsAPI](../api/ContractsApi.md)
  */
 export const Contracts = createContracts(defaultConf);
 
 /**
  * Create a contract object that does not share static fields with other contracts. 
  * @param config Configurations.
- * @returns A contract object which extends [Contracts](../api/Contracts.md).
- * @see [Contracts](../api/Contracts.md)
+ * @returns A contract object which extends [ContractsAPI](../api/ContractsApi.md).
+ * @see [ContractsAPI](../api/ContractsApi.md)
  * 
  * @class
  */
