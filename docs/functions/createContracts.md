@@ -8,7 +8,7 @@
 
 > **createContracts**(`config?`): *typeof* `ContractsImpl`
 
-Defined in: [lib/Contracts.ts:479](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L479)
+Defined in: [lib/Contracts.ts:75](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L75)
 
 Create a contract object that does not share static fields with other contracts.
 
@@ -24,8 +24,8 @@ Configurations.
 
 *typeof* `ContractsImpl`
 
-A contract object which extends [ContractsApi](../classes/ContractsApi.md).
+A contract object which extends [Contracts](../api/Contracts.md).
 
 ## See
 
-[ContractsApi](../classes/ContractsApi.md)
+[Contracts](../api/Contracts.md)

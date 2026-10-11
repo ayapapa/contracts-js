@@ -2,23 +2,21 @@
 
 ***
 
-[@ayapapa-npm/contracts-js](../api.md) / ContractsApi
+[@ayapapa-npm/contracts-js](../api.md) / Contracts
 
-# Abstract Class: ContractsApi
+# Class: Contracts
 
-Defined in: [lib/Contracts.ts:63](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L63)
-
-Contracs API definition.
+Defined in: [lib/Contracts.ts:100](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L100)
 
 ## Constructors
 
 ### Constructor
 
-> **new ContractsApi**(): `ContractsApi`
+> **new Contracts**(): `Contracts`
 
 #### Returns
 
-`ContractsApi`
+`Contracts`
 
 ## Properties
 
@@ -26,7 +24,7 @@ Contracs API definition.
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:73](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L73)
+Defined in: [lib/Contracts.ts:110](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L110)
 
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
@@ -38,7 +36,7 @@ Please use `setConfig()` to change the debug mode.**
 
 > `abstract` `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:335](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L335)
+Defined in: [lib/Contracts.ts:372](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L372)
 
 Checks a postcondition after execution.
 
@@ -129,7 +127,7 @@ function double(value) {
 
 > `abstract` `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:375](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L375)
+Defined in: [lib/Contracts.ts:412](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L412)
 
 Checks a postcondition in debug mode only.
 
@@ -208,7 +206,7 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:125](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L125)
+Defined in: [lib/Contracts.ts:162](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L162)
 
 Get the current configurations.
 
@@ -230,7 +228,7 @@ Default configurations.
 
 > `static` **getDefaultConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:118](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L118)
+Defined in: [lib/Contracts.ts:155](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L155)
 
 Get the default configurations.
 
@@ -252,7 +250,7 @@ Default configurations.
 
 > `abstract` `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:423](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L423)
+Defined in: [lib/Contracts.ts:460](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L460)
 
 Checks an invariant condition.
 
@@ -340,7 +338,7 @@ class BankAccount {
 
 > `abstract` `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:462](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L462)
+Defined in: [lib/Contracts.ts:499](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L499)
 
 Checks an invariant condition in debug mode only.
 
@@ -419,7 +417,7 @@ Contracts.INVARIANT_DEBUG(
 
 > `abstract` `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:243](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L243)
+Defined in: [lib/Contracts.ts:280](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L280)
 
 Checks a precondition before execution.
 
@@ -507,7 +505,7 @@ function divide(a, b) {
 
 > `abstract` `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:284](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L284)
+Defined in: [lib/Contracts.ts:321](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L321)
 
 Checks a precondition in debug mode only.
 
@@ -586,7 +584,7 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(`this`): `void`
 
-Defined in: [lib/Contracts.ts:131](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L131)
+Defined in: [lib/Contracts.ts:168](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L168)
 
 Reset the current configurations to the default configurations.
 
@@ -608,7 +606,7 @@ Default configurations.
 
 > `abstract` `static` **setConfig**(`this`, `config`, `reset`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:111](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L111)
+Defined in: [lib/Contracts.ts:148](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L148)
 
 Configures contract checking behavior.
 
@@ -668,7 +666,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 > `abstract` `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:159](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L159)
+Defined in: [lib/Contracts.ts:196](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L196)
 
 Verifies an intermediate condition during execution.
 
@@ -737,7 +735,7 @@ Contracts.VERIFY(
 
 > `abstract` `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
-Defined in: [lib/Contracts.ts:195](https://github.com/ayapapa/contracts-js/blob/5a4be9fa97d9bb459d74e827a192ce7f8c5ce2c1/src/lib/Contracts.ts#L195)
+Defined in: [lib/Contracts.ts:232](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L232)
 
 Verifies an intermediate condition in debug mode only.
 
