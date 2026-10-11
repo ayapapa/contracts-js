@@ -217,5 +217,13 @@ function processAccount(account) {
 }
 ```
 
+**IMPORTANT**: To avoid configuration conflicts with other modules using this library, please create and use separate contract objects as shown below.
+```javascript
+import { createContracts } from '@ayapapa-npm/contracts-js';
+
+const MyContracts = createContracts();
+....
+```
+
 **XXX_DEBUG() performs the same action as XXX() in debug mode; otherwise, no action.**
 
