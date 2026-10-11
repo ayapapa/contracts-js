@@ -59,16 +59,16 @@ const defaultConf: Readonly<Required<Config>>  = {
 /**
  * Contracts.
  * 
- * For details, see [ContractsAPI](../api/ContractsApi.md).
- * @see [ContractsAPI](../api/ContractsApi.md)
+ * For details, see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
+ * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
  */
 export const Contracts = createContracts(defaultConf);
 
 /**
  * Create a contract object that does not share static fields with other contracts. 
  * @param config Configurations.
- * @returns A contract object which extends [ContractsAPI](../api/ContractsApi.md).
- * @see [ContractsAPI](../api/ContractsApi.md)
+ * @returns A contract class object. Please refer to `See` for the definition of this object..
+ * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
  * 
  * @class
  */
