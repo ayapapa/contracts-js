@@ -409,16 +409,34 @@ describe('Contracts', () => {
 
   it('createContract', () => {
     const ContractsCreated = createContracts();
+    const dummyLogger = {
+      error: ()=>{},
+    }
 
-    ContractsCreated.setConfig({ returnType: 'boolean' });
-    Contracts.setConfig({ returnType: 'void' });
+    ContractsCreated.setConfig({ logger: dummyLogger, returnType: 'boolean', debug: true });
+    Contracts.setConfig({ logger: console, returnType: 'void', debug: false });
+
     expect(ContractsCreated.VERIFY(true, null)).toBeTruthy();
-    expect(Contracts.VERIFY(true, null)).toBeUndefined();
+    expect(ContractsCreated.DEBUG_MODE).toBeTruthy();
+    expect(ContractsCreated.getConfig().debug).toBeTruthy();
+    expect(ContractsCreated.getConfig().logger).toBe(dummyLogger);
 
-    ContractsCreated.setConfig({ returnType: 'void' });
-    Contracts.setConfig({ returnType: 'boolean' });
-    expect(ContractsCreated.VERIFY(true, null)).toBeUndefined();
-    expect(Contracts.VERIFY(true, null)).toBeTruthy();
+    expect(Contracts.VERIFY(true, null)).toBeUndefined();
+    expect(Contracts.DEBUG_MODE).toBeFalsy();
+    expect(Contracts.getConfig().debug).toBeFalsy();
+    expect(Contracts.getConfig().logger).toBe(console);
+
+    Contracts.setConfig({ logger: dummyLogger, returnType: 'boolean', debug: true });
+    ContractsCreated.setConfig({ logger: console, returnType: 'void', debug: false });
+    expect(ContractsCreated.VERIFY(false, null, null)).toBeUndefined();
+    expect(ContractsCreated.DEBUG_MODE).toBeFalsy();
+    expect(ContractsCreated.getConfig().debug).toBeFalsy();
+    expect(ContractsCreated.getConfig().logger).toBe(console);
+
+    expect(Contracts.VERIFY(false, null, null)).toBeFalsy();
+    expect(Contracts.DEBUG_MODE).toBeTruthy();
+    expect(Contracts.getConfig().debug).toBeTruthy();
+    expect(Contracts.getConfig().logger).toBe(dummyLogger);
   });
 
 });
