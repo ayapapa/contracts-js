@@ -6,16 +6,6 @@
 
 # Class: Contracts
 
-## Constructors
-
-### Constructor
-
-> **new Contracts**(): `Contracts`
-
-#### Returns
-
-`Contracts`
-
 ## Properties
 
 ### DEBUG\_MODE
