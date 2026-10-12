@@ -20,7 +20,7 @@ Please use `setConfig()` to change the debug mode.**
 
 ### ENSURE()
 
-> `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **ENSURE**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a postcondition after execution.
 
@@ -109,7 +109,7 @@ function double(value) {
 
 ### ENSURE\_DEBUG()
 
-> `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **ENSURE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a postcondition in debug mode only.
 
@@ -226,7 +226,7 @@ Default configurations.
 
 ### INVARIANT()
 
-> `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **INVARIANT**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks an invariant condition.
 
@@ -312,7 +312,7 @@ class BankAccount {
 
 ### INVARIANT\_DEBUG()
 
-> `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **INVARIANT\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks an invariant condition in debug mode only.
 
@@ -389,7 +389,7 @@ Contracts.INVARIANT_DEBUG(
 
 ### REQUIRE()
 
-> `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **REQUIRE**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a precondition before execution.
 
@@ -475,7 +475,7 @@ function divide(a, b) {
 
 ### REQUIRE\_DEBUG()
 
-> `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **REQUIRE\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a precondition in debug mode only.
 
@@ -572,7 +572,7 @@ Default configurations.
 
 ### setConfig()
 
-> `static` **setConfig**(`this`, `config`, `reset`): `boolean` \| `void`
+> `static` **setConfig**(`config`, `reset`): `boolean` \| `void`
 
 Configures contract checking behavior.
 
@@ -630,7 +630,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 ### VERIFY()
 
-> `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **VERIFY**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Verifies an intermediate condition during execution.
 
@@ -697,7 +697,7 @@ Contracts.VERIFY(
 
 ### VERIFY\_DEBUG()
 
-> `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
+> `static` **VERIFY\_DEBUG**(`isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Verifies an intermediate condition in debug mode only.
 
