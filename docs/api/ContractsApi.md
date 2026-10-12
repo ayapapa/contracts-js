@@ -45,7 +45,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -133,7 +133,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -251,7 +251,7 @@ INVARIANT represents conditions that must always remain true.
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -336,7 +336,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -413,7 +413,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -499,7 +499,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -644,7 +644,7 @@ Verifies an intermediate condition during execution.
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
@@ -721,7 +721,7 @@ Typical usage:
 
 [`IsOk`](../type-aliases/IsOk.md)
 
-Condition value(`boolean`) or callback function whit return `boolean`.
+Condition value(`boolean`) or callback function that returns `boolean`.
 
 ##### ngMsg
 
