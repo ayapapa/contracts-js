@@ -6,8 +6,6 @@
 
 # Class: Contracts
 
-Defined in: [lib/Contracts.ts:100](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L100)
-
 ## Constructors
 
 ### Constructor
@@ -24,8 +22,6 @@ Defined in: [lib/Contracts.ts:100](https://github.com/ayapapa/contracts-js/blob/
 
 > `static` **DEBUG\_MODE**: `boolean` = `false`
 
-Defined in: [lib/Contracts.ts:110](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L110)
-
 Debug mode state.<br>
 **Note: This property is retained for backward compatibility.<br>
 Please use `setConfig()` to change the debug mode.**
@@ -34,9 +30,7 @@ Please use `setConfig()` to change the debug mode.**
 
 ### ENSURE()
 
-> `abstract` `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:372](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L372)
+> `static` **ENSURE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a postcondition after execution.
 
@@ -125,9 +119,7 @@ function double(value) {
 
 ### ENSURE\_DEBUG()
 
-> `abstract` `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:412](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L412)
+> `static` **ENSURE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a postcondition in debug mode only.
 
@@ -206,8 +198,6 @@ Contracts.ENSURE_DEBUG(
 
 > `static` **getConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:162](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L162)
-
 Get the current configurations.
 
 #### Parameters
@@ -228,8 +218,6 @@ Default configurations.
 
 > `static` **getDefaultConfig**(`this`): `Required`\<[`Config`](../interfaces/Config.md)\>
 
-Defined in: [lib/Contracts.ts:155](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L155)
-
 Get the default configurations.
 
 #### Parameters
@@ -248,9 +236,7 @@ Default configurations.
 
 ### INVARIANT()
 
-> `abstract` `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:460](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L460)
+> `static` **INVARIANT**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks an invariant condition.
 
@@ -336,9 +322,7 @@ class BankAccount {
 
 ### INVARIANT\_DEBUG()
 
-> `abstract` `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:499](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L499)
+> `static` **INVARIANT\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks an invariant condition in debug mode only.
 
@@ -415,9 +399,7 @@ Contracts.INVARIANT_DEBUG(
 
 ### REQUIRE()
 
-> `abstract` `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:280](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L280)
+> `static` **REQUIRE**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a precondition before execution.
 
@@ -503,9 +485,7 @@ function divide(a, b) {
 
 ### REQUIRE\_DEBUG()
 
-> `abstract` `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:321](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L321)
+> `static` **REQUIRE\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Checks a precondition in debug mode only.
 
@@ -584,8 +564,6 @@ Contracts.REQUIRE_DEBUG(
 
 > `static` **resetConfig**(`this`): `void`
 
-Defined in: [lib/Contracts.ts:168](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L168)
-
 Reset the current configurations to the default configurations.
 
 #### Parameters
@@ -604,9 +582,7 @@ Default configurations.
 
 ### setConfig()
 
-> `abstract` `static` **setConfig**(`this`, `config`, `reset`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:148](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L148)
+> `static` **setConfig**(`this`, `config`, `reset`): `boolean` \| `void`
 
 Configures contract checking behavior.
 
@@ -664,9 +640,7 @@ Contracts.setConfig({ debug: true, logger: prettyConsole });
 
 ### VERIFY()
 
-> `abstract` `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:196](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L196)
+> `static` **VERIFY**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Verifies an intermediate condition during execution.
 
@@ -733,9 +707,7 @@ Contracts.VERIFY(
 
 ### VERIFY\_DEBUG()
 
-> `abstract` `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
-
-Defined in: [lib/Contracts.ts:232](https://github.com/ayapapa/contracts-js/blob/e5563878151e8b9867da213508a928240bbb404b/src/lib/Contracts.ts#L232)
+> `static` **VERIFY\_DEBUG**(`this`, `isOk`, `ngMsg`, `ErrorClass`, `eParams?`, `eProps?`): `boolean` \| `void`
 
 Verifies an intermediate condition in debug mode only.
 
