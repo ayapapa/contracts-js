@@ -58,7 +58,10 @@ Failure message.
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
 Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+This is used as follows: 
+```ts
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -145,8 +148,10 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -263,8 +268,10 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -348,8 +355,10 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -425,8 +434,10 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -511,8 +522,10 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
 
 Supported values:
 - `Error` (default)
@@ -656,8 +669,11 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
+
 Supported values:
 - `Error` (default)
 - `TypeError`
@@ -733,8 +749,11 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+Error constructor used when the check fails. This is used as follows:  
+```ts 
+throw Object.assign(new ErrorClass(msg, eParams), eProps);
+```
+
 Supported values:
 - `Error` (default)
 - `TypeError`
