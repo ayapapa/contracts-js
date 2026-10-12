@@ -57,8 +57,7 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails.
-This is used as follows: 
+Error constructor used when the check fails. This is used as follows: 
 ```ts
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
