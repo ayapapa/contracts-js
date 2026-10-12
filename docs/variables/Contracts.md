@@ -8,7 +8,7 @@
 
 > `const` **Contracts**: *typeof* `ContractsImpl`
 
-Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/5f7616d9cf340f386d38f32394ef5cee28abac87/src/lib/Contracts.ts#L65)
+Defined in: [lib/Contracts.ts:65](https://github.com/ayapapa/contracts-js/blob/d135bd8564d4324c67c0077ed8dd8bdf3c1baa28/src/lib/Contracts.ts#L65)
 
 Contracts.
 
