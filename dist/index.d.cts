@@ -43,8 +43,8 @@ type ConfigKey = keyof Config;
 /**
  * Contracts.
  *
- * For details, see [Contracts](../api/Contracts.md).
- * @see [Contracts](../api/Contracts.md)
+ * For details, see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
+ * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
  */
 declare const Contracts: {
     new (): {};
@@ -113,7 +113,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -148,7 +151,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -181,8 +187,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -227,8 +235,10 @@ declare const Contracts: {
      * @param ngMsg Failure message.
      *
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -264,8 +274,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -311,8 +323,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -348,8 +362,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -392,8 +408,10 @@ declare const Contracts: {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -416,10 +434,8 @@ declare const Contracts: {
 /**
  * Create a contract object that does not share static fields with other contracts.
  * @param config Configurations.
- * @returns A contract object which extends [Contracts](../api/Contracts.md).
- * @see [Contracts](../api/Contracts.md)
- *
- * @class
+ * @returns A contract class object. Please refer to `See` for the definition of this object..
+ * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
  */
 declare function createContracts(config?: Config): {
     new (): {};
@@ -488,7 +504,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -523,7 +542,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -556,8 +578,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -602,8 +626,10 @@ declare function createContracts(config?: Config): {
      * @param ngMsg Failure message.
      *
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -639,8 +665,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -686,8 +714,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -723,8 +753,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`
@@ -767,8 +799,10 @@ declare function createContracts(config?: Config): {
      * @param isOk  Condition value(`boolean`) or callback function whit return `boolean`.
      * @param ngMsg Failure message.
      * @param ErrorClass  Error constructor used when the check fails.
-     * This is used as follows: throw Object.assign(new ErrorClass(msg, eParams), eProps);
-     *
+     * This is used as follows:
+     * ```ts
+     * throw Object.assign(new ErrorClass(msg, eParams), eProps);
+     * ```
      * Supported values:
      * - `Error` (default)
      * - `TypeError`

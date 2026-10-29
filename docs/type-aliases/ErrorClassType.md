@@ -8,7 +8,7 @@
 
 > **ErrorClassType**\<`T`\> = (...`args`) => `T`
 
-Defined in: [lib/Contracts.ts:16](https://github.com/ayapapa/contracts-js/blob/d135bd8564d4324c67c0077ed8dd8bdf3c1baa28/src/lib/Contracts.ts#L16)
+Defined in: [lib/Contracts.ts:16](https://github.com/ayapapa/contracts-js/blob/66bd42dadae6c0fc920e3ab019ceb454f1c1f87e/src/lib/Contracts.ts#L16)
 
 Type of the custom error class type.
 

@@ -1,7 +1,7 @@
 {
   "name": "@ayapapa-npm/contracts-js",
-  "version": "0.7.1",
-  "keywords": ["node", "javascript", "typescript", "sdk", "api", "utility", "Design by Contract"],
+  "version": "0.7.2",
+  "keywords": ["node", "javascript", "typescript", "sdk", "api", "utility", "contract", "design-by-contract", "backend"],
   "description": "A lightweight Design by Contract library for JavaScript.",
   "license": "MIT",
   "author": "ayapapa",
