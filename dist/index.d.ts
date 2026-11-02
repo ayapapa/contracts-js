@@ -823,4 +823,5 @@ declare function createContracts(config?: Config): {
     INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
 };
 
-export { type Config, type ConfigKey, Contracts, type ErrorClassType, type IsOk, type LogProvider, createContracts, Contracts as default };
+export { Contracts, createContracts, Contracts as default };
+export type { Config, ConfigKey, ErrorClassType, IsOk, LogProvider };
