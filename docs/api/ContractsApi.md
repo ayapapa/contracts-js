@@ -4,7 +4,7 @@
 
 [@ayapapa-npm/contracts-js](../api.md) / Contracts
 
-# Class: Contracts
+# Class: ContractsImpl
 
 ## Properties
 
@@ -57,7 +57,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows: 
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+or
 ```ts
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -71,7 +76,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -147,7 +152,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -161,7 +171,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -267,7 +277,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -281,7 +296,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -354,7 +369,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -368,7 +388,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -433,7 +453,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -447,7 +472,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -521,7 +546,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -535,7 +565,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -668,7 +698,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -682,7 +717,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 
@@ -748,7 +783,12 @@ Failure message.
 
 [`ErrorClassType`](../type-aliases/ErrorClassType.md)\<`Error`\> \| `null`
 
-Error constructor used when the check fails. This is used as follows:  
+Error constructor used when the check fails. This is used as follows:<br> 
+If `eParams` is array, 
+```ts
+throw Object.assign(new ErrorClass(msg, ...eParams), eProps);
+```
+Otherwise,
 ```ts 
 throw Object.assign(new ErrorClass(msg, eParams), eProps);
 ```
@@ -762,7 +802,7 @@ Supported values:
 
 ##### eParams?
 
-`Record`\<`string`, `unknown`\> \| `null`
+`Record`\<`string`, `unknown`\> \| `null` \| `unknown[]`
 
 Parameter options following the message passed to the Error constructor.
 

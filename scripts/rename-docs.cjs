@@ -36,7 +36,8 @@ for (const file of mdFiles) {
   const replaced = content
     .replace(/\]\(\.\/README\.md\)/g, "](./api.md)")
     .replace(/\]\(README\.md\)/g, "](api.md)")
-    .replace(/\]\(\.\.\/README\.md\)/g, "](../api.md)");
+    .replace(/\]\(\.\.\/README\.md\)/g, "](../api.md)")
+    .replace(/`ContractsImpl`/g, "[`ContractsImpl`](../api/ContractsApi.md)");
 
   if (content !== replaced) {
     fs.writeFileSync(file, replaced, "utf8");

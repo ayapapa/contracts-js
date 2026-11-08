@@ -6,7 +6,7 @@
 ![Statements](https://raw.githubusercontent.com/ayapapa/contracts-js/main/badges/coverage-statements.svg)
 
 ## Table of contents
-[Overview](#overview) | [API Reference](#api-reference) | [Installation](#installation) | [Contract Types](#contract-types) | [Usage](#usage)
+[Overview](#overview) | [API Reference](#api-reference) | [Installation](#installation) | [Contract Types](#contract-types) | [Usage](#usage) | [Examples](#examples)
 
 # contracts-js
 ## Overview
@@ -226,4 +226,27 @@ const MyContracts = createContracts();
 ```
 
 **XXX_DEBUG() performs the same action as XXX() in debug mode; otherwise, no action.**
+
+## How parameters are passed to error classes
+The following is an example using `VERIFY()`, but the same principle applies to all others.
+
+```ts
+VERIFY(condition, message, ErrorClass) 
+  => if (condition === false) throw new ErrorClass(message)
+
+VERIFY(condition, message:, { hoge: "hello" })
+  => if (condition === false) throw new ErrorClass(message, { hoge: "hello" })
+
+VERIFY(condition, message, ["hello", 1234]) 
+  => if (condition === false), throw new ErrorClass(message, ...["hello", 1234])
+
+VERIFY(condition, message, { hoge: "hello" }, { hogehoge: 123 }) 
+  => if (condition === false) throw Object.asigne(new ErrorClass(message, { hoge: "hello" }), { hogehoge: 123 })
+
+VERIFY(condition, message, ["hello", 1234], { hogehoge: 123 }) 
+  => if (condition === false) throw Object.asigne(new ErrorClass(message, ...["hello", 1234]), { hogehoge: 123 })
+
+VERIFY(condition, message, null, { hogehoge: 123 }) 
+  => if (condition === false) throw Object.asigne(new ErrorClass(message), { hogehoge: 123 })
+```
 

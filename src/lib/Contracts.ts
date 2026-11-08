@@ -109,7 +109,7 @@ export function createContracts(config: Config = defaultConf) {
     isOk: IsOk,
     ngMsg: string | null,
     ErrorClass: ErrorClassType | null,
-    eParams?: Record<string, unknown> | null,
+    eParams?: Record<string, unknown> | null | unknown[],
     eProps?: Record<string, unknown> | null
   ): boolean | void =>  {
 
@@ -120,7 +120,13 @@ export function createContracts(config: Config = defaultConf) {
 
       if (ErrorClass) {
         //const CustomError = ErrorClass as new (...any[]) => Error;
-        const err = eParams ? new ErrorClass(msg, eParams) : new ErrorClass(msg);
+        const err = eParams == null
+        ? new ErrorClass(msg)
+        : (
+          Array.isArray(eParams) 
+          ? new ErrorClass(msg, ...eParams) 
+          : new ErrorClass(msg, eParams)
+        );
         // Avoid using `if` statements to circumvent issues with coverage tools.
         eProps && Object.assign(err, eProps);
 
@@ -152,7 +158,7 @@ export function createContracts(config: Config = defaultConf) {
     isOk: IsOk,
     ngMsg: string | null,
     ErrorClass: ErrorClassType | null,
-    eParams?: Record<string, unknown> | null,
+    eParams?: Record<string, unknown> | null | unknown[],
     eProps?: Record<string, unknown> | null
   ): boolean | void =>  {
     if (ContractsImpl.DEBUG_MODE) {
@@ -316,7 +322,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return check('VERIFY', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -362,7 +368,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return checkDebug('VERIFY_DEBUG', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -419,7 +425,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return check('REQUIRE', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -468,7 +474,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return checkDebug('REQUIRE_DEBUG', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -528,7 +534,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return check('ENSURE', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -576,7 +582,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return checkDebug('ENSURE_DEBUG', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -633,7 +639,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return check('INVARIANT', isOk, ngMsg, ErrorClass, eParams, eProps);
@@ -681,7 +687,7 @@ export function createContracts(config: Config = defaultConf) {
       isOk: IsOk,
       ngMsg: string | null,
       ErrorClass: ErrorClassType | null = Error,
-      eParams?: Record<string, unknown> | null,
+      eParams?: Record<string, unknown> | null | unknown[],
       eProps?: Record<string, unknown> | null
     ): boolean | void {
       return checkDebug('INVARIANT_DEBUG', isOk, ngMsg, ErrorClass, eParams, eProps);

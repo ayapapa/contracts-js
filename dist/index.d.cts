@@ -134,7 +134,7 @@ declare const Contracts: {
      * );
      *
      */
-    VERIFY(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    VERIFY(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Verifies an intermediate condition in debug mode only.
      *
@@ -170,7 +170,7 @@ declare const Contracts: {
      *   'Intermediate value must not be null'
      * );
      */
-    VERIFY_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    VERIFY_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition before execution.
      *
@@ -217,7 +217,7 @@ declare const Contracts: {
      *   return a / b;
      * }
      */
-    REQUIRE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    REQUIRE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition in debug mode only.
      *
@@ -256,7 +256,7 @@ declare const Contracts: {
      *   'User must exist during debugging'
      * );
      */
-    REQUIRE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    REQUIRE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition after execution.
      *
@@ -306,7 +306,7 @@ declare const Contracts: {
      *   return result;
      * }
      */
-    ENSURE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    ENSURE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition in debug mode only.
      *
@@ -344,7 +344,7 @@ declare const Contracts: {
      *   'Result should exist during debugging'
      * );
      */
-    ENSURE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    ENSURE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition.
      *
@@ -391,7 +391,7 @@ declare const Contracts: {
      *
      * }
      */
-    INVARIANT(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    INVARIANT(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition in debug mode only.
      *
@@ -429,7 +429,7 @@ declare const Contracts: {
      *   'Cache size exceeded expected limit'
      * );
      */
-    INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
 };
 /**
  * Create a contract object that does not share static fields with other contracts.
@@ -525,7 +525,7 @@ declare function createContracts(config?: Config): {
      * );
      *
      */
-    VERIFY(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    VERIFY(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Verifies an intermediate condition in debug mode only.
      *
@@ -561,7 +561,7 @@ declare function createContracts(config?: Config): {
      *   'Intermediate value must not be null'
      * );
      */
-    VERIFY_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    VERIFY_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition before execution.
      *
@@ -608,7 +608,7 @@ declare function createContracts(config?: Config): {
      *   return a / b;
      * }
      */
-    REQUIRE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    REQUIRE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a precondition in debug mode only.
      *
@@ -647,7 +647,7 @@ declare function createContracts(config?: Config): {
      *   'User must exist during debugging'
      * );
      */
-    REQUIRE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    REQUIRE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition after execution.
      *
@@ -697,7 +697,7 @@ declare function createContracts(config?: Config): {
      *   return result;
      * }
      */
-    ENSURE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    ENSURE(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks a postcondition in debug mode only.
      *
@@ -735,7 +735,7 @@ declare function createContracts(config?: Config): {
      *   'Result should exist during debugging'
      * );
      */
-    ENSURE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    ENSURE_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition.
      *
@@ -782,7 +782,7 @@ declare function createContracts(config?: Config): {
      *
      * }
      */
-    INVARIANT(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    INVARIANT(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
     /**
      * Checks an invariant condition in debug mode only.
      *
@@ -820,7 +820,7 @@ declare function createContracts(config?: Config): {
      *   'Cache size exceeded expected limit'
      * );
      */
-    INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null, eProps?: Record<string, unknown> | null): boolean | void;
+    INVARIANT_DEBUG(this: void, isOk: IsOk, ngMsg: string | null, ErrorClass?: ErrorClassType | null, eParams?: Record<string, unknown> | null | unknown[], eProps?: Record<string, unknown> | null): boolean | void;
 };
 
 export { Contracts, createContracts, Contracts as default };

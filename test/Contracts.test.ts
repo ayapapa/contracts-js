@@ -22,11 +22,17 @@ class ErrorWithOptions extends Error {
   }
 }
 
+class ErrorArgs extends Error {
+  constructor(msg: string, hoge: string, hogehoge: number) {
+    super(msg);
+    Object.assign(this, { hoge, hogehoge });
+  }
+}
+
 beforeEach(() => {
   vi.restoreAllMocks();
   resetConfig();
 });
-
 
 describe('Contracts', () => {
 
@@ -170,6 +176,21 @@ describe('Contracts', () => {
       });
       expect((error as ErrorWithOptions).options).toMatchObject({
         code: 'E_REQUIRE',
+      });
+    }
+  });
+
+  it('Array eParams', () => {
+    expect.assertions(2);
+    try {
+      REQUIRE(false, 'failed', ErrorArgs, ["string", 123], { ehehe: "ehehehen" });
+    } catch (error) {
+      expect(error).toBeInstanceOf(ErrorArgs);
+      expect(error).toMatchObject({
+        message: '[REQUIRE] failed',
+        hoge: 'string',
+        hogehoge: 123,
+        ehehe: "ehehehen"
       });
     }
   });
