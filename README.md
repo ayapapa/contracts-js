@@ -6,7 +6,7 @@
 ![Statements](https://raw.githubusercontent.com/ayapapa/contracts-js/main/badges/coverage-statements.svg)
 
 ## Table of contents
-[Overview](#overview) | [API Reference](#api-reference) | [Installation](#installation) | [Contract Types](#contract-types) | [Usage](#usage) | [Examples](#examples)
+[Overview](#overview) | [API Reference](#api-reference) | [Installation](#installation) | [Contract Types](#contract-types) | [Usage](#usage)
 
 # contracts-js
 ## Overview
