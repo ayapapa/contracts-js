@@ -43,8 +43,8 @@ type ConfigKey = keyof Config;
 /**
  * Contracts.
  *
- * For details, see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
- * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
+ * For details, see [ContractsAPI](../api/ContractsImpl.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsImpl.md).
+ * @see [ContractsAPI](../api/ContractsImpl.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsImpl.md).
  */
 declare const Contracts: {
     new (): {};
@@ -435,7 +435,7 @@ declare const Contracts: {
  * Create a contract object that does not share static fields with other contracts.
  * @param config Configurations.
  * @returns A contract class object. Please refer to `See` for the definition of this object..
- * @see [ContractsAPI](../api/ContractsApi.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsApi.md).
+ * @see [ContractsAPI](../api/ContractsImpl.md) or [ContractsAPI](https://github.com/ayapapa/contracts-js/blob/main/docs/api/ContractsImpl.md).
  */
 declare function createContracts(config?: Config): {
     new (): {};
