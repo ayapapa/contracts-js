@@ -8,6 +8,6 @@
 
 > **IsOk** = `boolean` \| (() => `boolean`)
 
-Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/d52d151861731d67d0f1b9526fae84ff1e1b9431/src/lib/Contracts.ts#L10)
+Defined in: [lib/Contracts.ts:10](https://github.com/ayapapa/contracts-js/blob/55452eab23514d346f370ec18c7988b63f7d60a6/src/lib/Contracts.ts#L10)
 
 Type of the condition.
